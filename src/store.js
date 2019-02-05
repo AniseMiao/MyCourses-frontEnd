@@ -5,9 +5,13 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-
+    headState: 'login',
+    asideState: 'login'
   },
   mutations: {
+    head (h) {
+      this.state.headState = h
+    }
 
   },
   actions: {
