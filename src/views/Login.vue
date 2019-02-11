@@ -41,7 +41,6 @@
               <el-button type="primary" @click="submitRegistryForm">注册</el-button>
             </el-form-item>
           </el-form>
-          <router-view name="dia"></router-view>
         </el-tab-pane>
       </el-tabs>
     </transition>
@@ -49,6 +48,8 @@
 </template>
 
 <script>
+import { login } from '../api/login'
+
 export default {
   name: 'login',
   mounted: function () {
@@ -60,14 +61,13 @@ export default {
       console.log('init')
     },
     submitLoginForm () {
-      this.axios({
-        method: 'post',
-        url: '/user/12345',
-        data: {
-          firstName: 'Fred',
-          lastName: 'Stone'
-        }
+      var result = login(this, this.loginForm.email, this.loginForm.password)
+      result.then(function (res) {
+        console.log(res)
+      }).catch(function (err) {
+        console.log(err)
       })
+      // this.showMsg(this, 'error', '登陆失败，请检查你的网络连接')
     },
     submitRegistryForm () {
       this.axios({
@@ -83,7 +83,7 @@ export default {
       let that = this
       this.buttonDisabled = true
       let interval = window.setInterval(function () {
-        that.buttonName = that.disableTime
+        that.buttonName = '(' + that.disableTime + '秒)' + '后再次发送'
         --that.disableTime
         if (that.time < 0) {
           that.buttonName = '发送验证码'
