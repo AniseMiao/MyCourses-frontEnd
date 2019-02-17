@@ -34,8 +34,8 @@
               </el-input>
             </el-form-item>
             <el-form-item style="text-align: left">
-              <el-radio v-model="userType" label="student" border>注册为学生</el-radio>
-              <el-radio v-model="userType" label="teacher" border>注册为教师</el-radio>
+              <el-radio v-model="userType" label="Student" border>注册为学生</el-radio>
+              <el-radio v-model="userType" label="Teacher" border>注册为教师</el-radio>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="submitRegistryForm">注册</el-button>
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { login } from '../api/login'
+import { login, registry, sendVerificationCode } from '../api/user'
 
 export default {
   name: 'login',
@@ -57,25 +57,31 @@ export default {
     console.log('mounted' + this.name)
   },
   methods: {
-    init () {
-      console.log('init')
-    },
     submitLoginForm () {
-      var result = login(this, this.loginForm.email, this.loginForm.password)
-      result.then(function (res) {
-        console.log(res)
-      }).catch(function (err) {
-        console.log(err)
+      this.$refs['loginForm'].validate((valid) => {
+        if (valid) {
+          let result = login(this, this.loginForm.email, this.loginForm.password)
+          result.then(function (res) {
+            console.log(res)
+          }).catch(function (err) {
+            console.log(err)
+          })
+        } else {
+          this.showMsg(this, 'error', '请填写完整的信息')
+        }
       })
-      // this.showMsg(this, 'error', '登陆失败，请检查你的网络连接')
     },
     submitRegistryForm () {
-      this.axios({
-        method: 'post',
-        url: '/user/12345',
-        data: {
-          firstName: 'Fred',
-          lastName: 'Stone'
+      this.$refs['registryForm'].validate((valid) => {
+        if (valid) {
+          let result = registry(this, this.registryForm.email, this.registryForm.password, this.userType)
+          result.then(function (res) {
+            console.log(res)
+          }).catch(function (err) {
+            console.log(err)
+          })
+        } else {
+          this.showMsg(this, 'error', '请填写完整的信息')
         }
       })
     },
@@ -92,26 +98,17 @@ export default {
           window.clearInterval(interval)
         }
       }, 1000)
-      /**
-      this.axios({
-        method: 'post',
-        url: '/user/12345',
-        data: {
-          firstName: 'Fred',
-          lastName: 'Stone'
-        }
-      })
-       **/
-      this.$alert('验证码已发送至您的邮箱: ' + this.registryForm.email + ' ,请注意查收', '验证码已发送', {
+      this.verificationCode = sendVerificationCode(that, this.registryForm.email)
+      this.$alert('验证码已发送至您的邮箱: ' + this.registryForm.email + ' ,请注意查收.', '验证码已发送', {
         confirmButtonText: '确定'
       })
     }
   },
 
   data () {
-    var validatePassword = (rule, value, cb) => {
-      var blank = /^\S*$/
-      var pattern = /^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)[0-9A-Za-z]{8,20}$/g
+    let validatePassword = (rule, value, cb) => {
+      let blank = /^\S*$/
+      let pattern = /^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)[0-9A-Za-z]{8,20}$/g
       if (!pattern.test(value) || !blank.test(value)) {
         cb(new Error('请输入8-20个非空白字符，且至少包括数字和大小写字符中的两种'))
       } else {
@@ -121,22 +118,22 @@ export default {
         cb()
       }
     }
-    var validateRepeatPassword = (rule, value, cb) => {
+    let validateRepeatPassword = (rule, value, cb) => {
       if (value !== this.registryForm.password) {
         cb(new Error('两次输入密码不一致!'))
       } else {
         cb()
       }
     }
-    var validateEmail = (rule, value, cb) => {
+    let validateEmail = (rule, value, cb) => {
       if (value.endsWith('nju.edu.cn')) {
         cb()
       } else {
         cb(new Error('请使用南大邮箱注册'))
       }
     }
-    var validateVerificationCode = (rule, value, cb) => {
-      if (value === this.verificationCode && this.verificationCode !== '') {
+    let validateVerificationCode = (rule, value, cb) => {
+      if (value === this.verificationCode && this.verificationCode !== null) {
         cb()
       } else {
         cb(new Error('验证码不正确,或您尚未获取验证码'))
@@ -146,11 +143,11 @@ export default {
       dialogVisible: false,
       loginShow: false,
       loginTabs: 'loginTab',
-      userType: 'student',
+      userType: 'Student',
       buttonName: '发送验证码',
       buttonDisabled: false,
       disableTime: 60,
-      verificationCode: '',
+      verificationCode: null,
       loginForm: {
         email: '',
         password: ''
@@ -213,8 +210,5 @@ export default {
     left: 50%;
     top: 40%;
     transform: translate(-50%, -50%);
-  }
-  .el-tabs {
-    transition: 1s;
   }
 </style>
