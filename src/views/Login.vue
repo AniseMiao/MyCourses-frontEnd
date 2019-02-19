@@ -2,7 +2,7 @@
   <div class="loginBack">
     <transition name="el-fade-in-linear">
       <el-tabs v-show="loginShow" v-model="loginTabs" type="card" style="padding-right: 50px;" class="loginMain">
-        <el-tab-pane label="登陆" name="loginTab">
+        <el-tab-pane label="登陆" name="loginTab" @keyup.enter.native="submitLoginForm">
           <h2>MyCourses课程管理系统</h2>
           <el-form :model="loginForm" :rules="loginRule" ref="loginForm" label-width="100px">
             <el-form-item label="邮箱" prop="email">
@@ -14,9 +14,13 @@
             <el-form-item>
               <el-button type="primary" @click="submitLoginForm">登陆</el-button>
             </el-form-item>
+            <p>您浏览器的 cookies 设置必须打开
+            <el-tooltip effect="dark" content="如果您禁用cookies,会导致登陆验证失效" placement="right">
+              <i class="el-icon-question"></i>
+            </el-tooltip></p>
           </el-form>
         </el-tab-pane>
-        <el-tab-pane label="注册" name="registryTab">
+        <el-tab-pane label="注册" name="registryTab" @keyup.enter.native="submitRegistryForm">
           <h2>MyCourses课程管理系统</h2>
           <el-form :model="registryForm" :rules="registryRule" ref="registryForm" label-width="100px">
             <el-form-item label="邮箱" prop="email">
@@ -49,12 +53,12 @@
 
 <script>
 import { login, registry, sendVerificationCode } from '../api/user'
+import { Loading } from 'element-ui'
 
 export default {
   name: 'login',
   mounted: function () {
     this.loginShow = true
-    console.log('mounted' + this.name)
   },
   methods: {
     submitLoginForm () {
@@ -77,9 +81,21 @@ export default {
           let result = registry(this, this.registryForm.email, this.registryForm.password, this.userType)
           result.then(function (res) {
             console.log(res)
-          }).catch(function (err) {
+            if (res.data === true) {
+              let type = this.userType
+              switch (type) {
+                case 'Student':
+                  break
+                case 'Teacher':
+                  break
+              }
+            } else {
+              this.showMsg(this, 'error', '注册失败，您的账号可能已经被注册')
+            }
+          }.bind(this)).catch(function (err) {
             console.log(err)
-          })
+            this.showMsg(this, 'error', '注册失败，请检查您的网络连接')
+          }.bind(this))
         } else {
           this.showMsg(this, 'error', '请填写完整的信息')
         }
@@ -91,17 +107,40 @@ export default {
       let interval = window.setInterval(function () {
         that.buttonName = '(' + that.disableTime + '秒)' + '后再次发送'
         --that.disableTime
-        if (that.time < 0) {
+        if (that.disableTime < 0) {
           that.buttonName = '发送验证码'
-          that.disableTime = 60
+          that.disableTime = 30
           that.buttonDisabled = false
           window.clearInterval(interval)
         }
       }, 1000)
-      this.verificationCode = sendVerificationCode(that, this.registryForm.email)
-      this.$alert('验证码已发送至您的邮箱: ' + this.registryForm.email + ' ,请注意查收.', '验证码已发送', {
-        confirmButtonText: '确定'
-      })
+      if (this.registryForm.email.endsWith('nju.edu.cn')) {
+        let LoadingInstance = Loading.service({ fullscreen: true, background: 'rgba(0, 0, 0, 0.8)', text: '正在发送邮件，请稍等' })
+        let result = sendVerificationCode(that, this.registryForm.email)
+        result.then(function (res) {
+          console.log(res)
+          this.verificationCode = res.data
+          this.$alert('验证码已发送至您的邮箱: ' + this.registryForm.email + ' ,请注意查收.', '验证码已发送', {
+            confirmButtonText: '确定',
+            callback: action => {
+              LoadingInstance.close()
+            }
+          })
+        }.bind(this)).catch(function (err) {
+          console.log(err)
+          this.$alert('验证码发送失败,请稍后重试.', '验证码发送失败', {
+            confirmButtonText: '确定',
+            callback: action => {
+              LoadingInstance.close()
+            }
+          })
+        }.bind(this))
+      } else {
+        this.showMsg(this, 'error', '请填写您的南大邮箱地址后再发送验证码')
+      }
+    },
+    forgetPassword () {
+      this.router.push('/forgetPassword')
     }
   },
 
@@ -133,7 +172,8 @@ export default {
       }
     }
     let validateVerificationCode = (rule, value, cb) => {
-      if (value === this.verificationCode && this.verificationCode !== null) {
+    // eslint-disable-next-line eqeqeq
+      if (value.toString() === this.verificationCode.toString() && this.verificationCode !== null) {
         cb()
       } else {
         cb(new Error('验证码不正确,或您尚未获取验证码'))
@@ -192,6 +232,10 @@ export default {
 </script>
 
 <style scoped>
+  #chart1 {
+    width: 300px;
+    height: 300px;
+  }
   .loginBack {
     height: 100%;
     position: fixed;

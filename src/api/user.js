@@ -57,11 +57,21 @@ function modifyUser (that, email, username, userNumber) {
     }
   })
 }
+function isComplete (that, email) {
+  return that.$axios({
+    method: 'get',
+    url: '/MyCourses/api/v1/user/isComplete',
+    params: {
+      email: email
+    }
+  })
+}
 export {
   login,
   registry,
   sendVerificationCode,
   closeUser,
   getUser,
-  modifyUser
+  modifyUser,
+  isComplete
 }
