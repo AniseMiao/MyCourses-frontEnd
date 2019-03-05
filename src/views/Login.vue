@@ -48,6 +48,7 @@
         </el-tab-pane>
       </el-tabs>
     </transition>
+    <!-- <div id="chart1"></div> -->
   </div>
 </template>
 
@@ -59,6 +60,7 @@ export default {
   name: 'login',
   mounted: function () {
     this.loginShow = true
+    // this.$chart.line1('chart1')
   },
   methods: {
     submitLoginForm () {
@@ -138,9 +140,6 @@ export default {
       } else {
         this.showMsg(this, 'error', '请填写您的南大邮箱地址后再发送验证码')
       }
-    },
-    forgetPassword () {
-      this.router.push('/forgetPassword')
     }
   },
 

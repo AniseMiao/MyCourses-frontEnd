@@ -4,8 +4,8 @@ import Login from '../views/Login'
 import NotFound from '../views/404'
 import AdminHomepage from '../views/Admin/homepage'
 import HomepageMainAdmin from '../components/Admin/home'
-import TopNavAdmin from '../components/Admin/topNavForAdmin'
-import LeftNavAdmin from '../components/Admin/leftNavForAdmin'
+import TopNav from '../components/topNav'
+import LeftNav from '../components/leftNav'
 
 Vue.use(Router)
 const routes = [
@@ -21,8 +21,8 @@ const routes = [
     children: [{
       path: '',
       components: {
-        topNav: TopNavAdmin,
-        leftNav: LeftNavAdmin,
+        topNav: TopNav,
+        leftNav: LeftNav,
         main: HomepageMainAdmin
       }
     }]
