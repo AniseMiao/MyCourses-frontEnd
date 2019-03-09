@@ -1,46 +1,94 @@
 <template>
   <div>
-    <el-col v-show="$store.state.leftNavState === 'adminHome'">
+    <el-col v-show="$store.state.leftNavState === 'admin'">
       <el-menu
         background-color="#545c64"
         text-color="#fff"
         active-text-color="#ffd04b"
-        :router="false"
+        :router="true"
       >
         <el-submenu index="1">
           <template slot="title">
-            <i class="el-icon-location"></i>
-            <span>导航一</span>
+            <i class="el-icon-edit"></i>
+            <span>课程审核</span>
           </template>
-          <el-menu-item-group>
-            <template slot="title">分组一</template>
-            <el-menu-item index="1-1">选项1</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-          </el-menu-item-group>
-          <el-menu-item-group title="分组2">
-            <el-menu-item index="1-3">选项3</el-menu-item>
-          </el-menu-item-group>
-          <el-submenu index="1-4">
-            <template slot="title">选项4</template>
-            <el-menu-item index="1-4-1">选项1</el-menu-item>
-          </el-submenu>
+            <el-menu-item index="/admin/reviewCreateCourses">建课审核</el-menu-item>
+            <el-menu-item index="/admin/reviewOpenCourses">开课审核</el-menu-item>
         </el-submenu>
-        <el-menu-item index="2">
-          <i class="el-icon-menu"></i>
-          <span slot="title">导航二</span>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <i class="el-icon-setting"></i>
-          <span slot="title">导航四</span>
-        </el-menu-item>
+        <el-submenu index="2">
+          <template slot="title">
+            <i class="el-icon-menu"></i>
+            <span>统计信息</span>
+          </template>
+          <el-menu-item index="/admin/showTeachers">查看教师信息</el-menu-item>
+          <el-menu-item index="/admin/showStudents">查看学生信息</el-menu-item>
+          <el-menu-item index="/admin/showUse">查看站点使用情况</el-menu-item>
+          <el-menu-item index="/admin/showLog">查看系统日志</el-menu-item>
+        </el-submenu>
+        <el-submenu index="3">
+          <template slot="title">
+            <i class="el-icon-setting"></i>
+            <span>个人设置</span>
+          </template>
+            <el-menu-item><el-button type="text" @click="showProfile">个人资料</el-button></el-menu-item>
+            <el-menu-item index="/admin/logout">登出</el-menu-item>
+        </el-submenu>
       </el-menu>
     </el-col>
+    <el-col v-show="$store.state.leftNavState === 'student'"></el-col>
+    <el-col v-show="$store.state.leftNavState === 'teacher'"></el-col>
+    <el-dialog
+      title="个人信息"
+      :visible.sync="profileVisible"
+      width="30%">
+      <span>邮箱: <el-input v-model="userEmail" :readonly="true" ></el-input></span>
+      <span>密码: <el-input show-password v-model="userPassword" :readonly="true" ></el-input></span>
+      <span>用户名: <el-input v-model="username" :readonly="true" ></el-input></span>
+      <span>学号/工号: <el-input v-model="userNumber" :readonly="true" ></el-input></span>
+      <span slot="footer" class="dialog-footer">
+    <el-button type="primary" @click="profileVisible = false">确 定</el-button>
+  </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import { readCookie, eraseCookie } from '../lib/cookie'
+import { getUser } from '../api/user'
 export default {
-  name: 'leftNavForAdmin'
+  name: 'leftNav',
+  mounted: function () {
+    let profileData = getUser(this, readCookie('login'))
+    profileData.then(function (res) {
+      console.log(res)
+      this.userEmail = res.data.userEmail
+      this.username = res.data.userName
+      this.userNumber = res.data.userNumber
+      this.userPassword = res.data.userPassword
+    }.bind(this)).catch(function (err) {
+      console.log(err)
+    })
+  },
+  methods: {
+    logout () {
+      console.log('success')
+      eraseCookie('login')
+      eraseCookie('type')
+      this.$router.push('/')
+    },
+    showProfile () {
+      this.profileVisible = true
+    }
+  },
+  data () {
+    return {
+      username: '',
+      userEmail: '',
+      userPassword: '',
+      userNumber: '',
+      profileVisible: false
+    }
+  }
 }
 </script>
 

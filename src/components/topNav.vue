@@ -1,5 +1,5 @@
 <template>
-  <div>  <el-row v-show="$store.state.topNavState==='adminHome'">
+  <div>  <el-row v-show="$store.state.topNavState==='admin'">
     <el-col :span="3">
       <el-button type="text" icon="el-icon-menu" style="padding-top: 15px;padding-bottom: 0px; padding-left: 15px" @click="goToHomepage">
         MyCourses
@@ -16,60 +16,87 @@
       >
         <el-submenu index="1">
           <template slot="title">课程管理</template>
-          <el-menu-item index="temp">建课审核
-            <el-badge class="mark" :value="createCourseNum"/>
-          </el-menu-item>
-          <el-menu-item index="temp">开课审核
-            <el-badge class="mark" :value="openCourseNum"/>
-          </el-menu-item>
+          <el-menu-item index="/admin/reviewCreateCourses">建课审核</el-menu-item>
+          <el-menu-item index="/admin/reviewOpenCourses">开课审核</el-menu-item>
         </el-submenu>
         <el-submenu index="2">
           <template slot="title">统计信息</template>
-          <el-menu-item index="2-1">查看教师信息</el-menu-item>
-          <el-menu-item index="2-2">查看学生信息</el-menu-item>
-          <el-menu-item index="2-3">查看站点使用情况</el-menu-item>
-          <el-menu-item index="2-4">查看系统日志</el-menu-item>
+          <el-menu-item index="/admin/showTeachers">查看教师信息</el-menu-item>
+          <el-menu-item index="/admin/showStudents">查看学生信息</el-menu-item>
+          <el-menu-item index="/admin/showUse">查看站点使用情况</el-menu-item>
+          <el-menu-item index="/admin/showLog">查看系统日志</el-menu-item>
         </el-submenu>
       </el-menu>
     </el-col>
     <el-col :span="1">
-      <el-dropdown trigger="click">
+      <el-dropdown>
         <el-button type="text" icon="el-icon-setting" style="padding-top: 20px;padding-bottom: 0px;">{{username}}</el-button>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>个人资料</el-dropdown-item>
-          <el-dropdown-item>设置</el-dropdown-item>
-          <el-dropdown-item>登出</el-dropdown-item>
+          <el-dropdown-item @click.native="showProfile">个人资料</el-dropdown-item>
+          <el-dropdown-item @click.native="logout">登出</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </el-col>
   </el-row>
-    <el-row v-show="$store.state.topNavState === 'adminOne'">
-    </el-row></div>
+    <el-row v-show="$store.state.topNavState === 'student'">
+    </el-row>
+    <el-row v-show="$store.state.topNavState === 'teacher'">
+    </el-row>
+    <el-dialog
+      title="个人信息"
+      :visible.sync="profileVisible"
+      width="30%">
+      <span>邮箱: <el-input v-model="userEmail" :readonly="true" ></el-input></span>
+      <span>密码: <el-input show-password v-model="userPassword" :readonly="true" ></el-input></span>
+      <span>用户名: <el-input v-model="username" :readonly="true" ></el-input></span>
+      <span>学号/工号: <el-input v-model="userNumber" :readonly="true" ></el-input></span>
+      <span slot="footer" class="dialog-footer">
+    <el-button type="primary" @click="profileVisible = false">确 定</el-button>
+  </span>
+    </el-dialog>
+
+  </div>
 
 </template>
 
 <script>
-import { getNotCheckedCourses } from '../api/course'
+import { readCookie, eraseCookie } from '../lib/cookie'
+import { getUser } from '../api/user'
 export default {
   name: 'topNav',
   mounted: function () {
-    getNotCheckedCourses()
+    let profileData = getUser(this, readCookie('login'))
+    profileData.then(function (res) {
+      console.log(res)
+      this.userEmail = res.data.userEmail
+      this.username = res.data.userName
+      this.userNumber = res.data.userNumber
+      this.userPassword = res.data.userPassword
+    }.bind(this)).catch(function (err) {
+      console.log(err)
+    })
   },
   methods: {
     goToHomepage () {
-      this.$router.push({
-        url: '/adminHomepage',
-        params: {
-          username: this.username
-        }
-      })
+      this.$router.push('/')
+    },
+    logout () {
+      console.log('success')
+      eraseCookie('login')
+      eraseCookie('type')
+      this.$router.push('/')
+    },
+    showProfile () {
+      this.profileVisible = true
     }
   },
   data () {
     return {
-      username: 'admin',
-      createCourseNum: 10,
-      openCourseNum: 20
+      username: '',
+      userEmail: '',
+      userPassword: '',
+      userNumber: '',
+      profileVisible: false
     }
   }
 }

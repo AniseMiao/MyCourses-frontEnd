@@ -55,6 +55,7 @@
 <script>
 import { login, registry, sendVerificationCode } from '../api/user'
 import { Loading } from 'element-ui'
+import { createCookie } from '../lib/cookie'
 
 export default {
   name: 'login',
@@ -68,8 +69,10 @@ export default {
         if (valid) {
           let result = login(this, this.loginForm.email, this.loginForm.password)
           result.then(function (res) {
+            createCookie('login', this.loginForm.email, 1)
+            createCookie('type', res.data, 1)
             console.log(res)
-          }).catch(function (err) {
+          }.bind(this)).catch(function (err) {
             console.log(err)
           })
         } else {
@@ -231,10 +234,6 @@ export default {
 </script>
 
 <style scoped>
-  #chart1 {
-    width: 300px;
-    height: 300px;
-  }
   .loginBack {
     height: 100%;
     position: fixed;

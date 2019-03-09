@@ -5,12 +5,7 @@
     color: #2c3e50;
 }
 
-/*
-Admin css
-*/
 .topNavigation{
-    /*background-color: #409EFF;*/
-    /*background-color: #373d41;*/
     background-color: #373d41;
     padding-left: 0px;
     padding-top: 0px;
@@ -20,9 +15,11 @@ Admin css
 .asideNavigation {
     background-color: #333744;
 }
+
 .adminHomepageMain {
     background-color: #f2f2f2;
 }
+
 .container {
     position: absolute;
     top: 0px;

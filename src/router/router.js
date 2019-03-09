@@ -4,8 +4,15 @@ import Login from '../views/Login'
 import NotFound from '../views/404'
 import AdminHomepage from '../views/Admin/homepage'
 import HomepageMainAdmin from '../components/Admin/home'
+import ShowLog from '../components/Admin/showLog'
+import ShowUse from '../components/Admin/showUse'
+import ShowStudents from '../components/Admin/showStudent'
+import ShowTeachers from '../components/Admin/showTeacher'
+import ReviewCreateCourses from '../components/Admin/reviewCreateCourse'
+import ReviewOpenCourses from '../components/Admin/reviewOpenCourse'
 import TopNav from '../components/topNav'
 import LeftNav from '../components/leftNav'
+import { eraseCookie } from '../lib/cookie'
 
 Vue.use(Router)
 const routes = [
@@ -15,7 +22,7 @@ const routes = [
     component: Login
   },
   {
-    path: '/adminHomepage',
+    path: '/admin/Homepage',
     name: 'adminHomepage',
     component: AdminHomepage,
     children: [{
@@ -24,6 +31,84 @@ const routes = [
         topNav: TopNav,
         leftNav: LeftNav,
         main: HomepageMainAdmin
+      }
+    }]
+  },
+  {
+    path: '/admin/showLog',
+    name: 'adminShowLog',
+    component: AdminHomepage,
+    children: [{
+      path: '',
+      components: {
+        topNav: TopNav,
+        leftNav: LeftNav,
+        main: ShowLog
+      }
+    }]
+  },
+  {
+    path: '/admin/showUse',
+    name: 'adminShowUse',
+    component: AdminHomepage,
+    children: [{
+      path: '',
+      components: {
+        topNav: TopNav,
+        leftNav: LeftNav,
+        main: ShowUse
+      }
+    }]
+  },
+  {
+    path: '/admin/showStudents',
+    name: 'adminShowStudents',
+    component: AdminHomepage,
+    children: [{
+      path: '',
+      components: {
+        topNav: TopNav,
+        leftNav: LeftNav,
+        main: ShowStudents
+      }
+    }]
+  },
+  {
+    path: '/admin/showTeachers',
+    name: 'adminShowTeachers',
+    component: AdminHomepage,
+    children: [{
+      path: '',
+      components: {
+        topNav: TopNav,
+        leftNav: LeftNav,
+        main: ShowTeachers
+      }
+    }]
+  },
+  {
+    path: '/admin/reviewCreateCourses',
+    name: 'adminReviewCreateCourses',
+    component: AdminHomepage,
+    children: [{
+      path: '',
+      components: {
+        topNav: TopNav,
+        leftNav: LeftNav,
+        main: ReviewCreateCourses
+      }
+    }]
+  },
+  {
+    path: '/admin/reviewOpenCourses',
+    name: 'adminReviewOpenCourses',
+    component: AdminHomepage,
+    children: [{
+      path: '',
+      components: {
+        topNav: TopNav,
+        leftNav: LeftNav,
+        main: ReviewOpenCourses
       }
     }]
   },
@@ -39,6 +124,15 @@ const router = new Router({
 })
 
 export default router
+router.beforeEach((route, redirect, next) => {
+  if (route.path === '/admin/logout' || route.path === '/student/logout' || route.path === '/teacher/logout') {
+    eraseCookie('login')
+    eraseCookie('type')
+    next('/')
+  } else {
+    next()
+  }
+})
 /**
 router.beforeEach((route, redirect, next) => {
   // 如果没有登录，跳转至登录页面

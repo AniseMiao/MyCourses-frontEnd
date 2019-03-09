@@ -66,6 +66,12 @@ function isComplete (that, email) {
     }
   })
 }
+function getAllUser (that) {
+  return that.$axios({
+    method: 'get',
+    url: '/MyCourses/api/v1/user/getAllUser'
+  })
+}
 export {
   login,
   registry,
@@ -73,5 +79,6 @@ export {
   closeUser,
   getUser,
   modifyUser,
-  isComplete
+  isComplete,
+  getAllUser
 }
