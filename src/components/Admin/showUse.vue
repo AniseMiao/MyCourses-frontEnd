@@ -1,29 +1,25 @@
 <template>
   <div class="showuse">
-  <el-date-picker
-    v-model="defaultTime"
-    type="daterange"
-    :picker-options="pickerOptions"
-    range-separator="至"
-    start-placeholder="开始日期"
-    end-placeholder="结束日期"
-    align="right">
-  </el-date-picker>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <el-button type="primary" @click="search">查询</el-button>
-    <br/>
-    <br/>
     <div id="chart"></div>
   </div>
 </template>
 
 <script>
+import { getUseStatistics } from '../../api/statistics'
+
 export default {
   name: 'showUse',
   mounted: function () {
-    this.$chart.showUseOneWeek('chart', this.optionData)
-    console.log('mounted!!')
-    console.log(document.getElementById('chart').optionData)
+    let result = getUseStatistics(this)
+    result.then(function (res) {
+      console.log(res)
+      this.optionData.xAxis[0].data = res.data.xAxis
+      this.optionData.series[0].data = res.data.loginData
+      this.optionData.series[1].data = res.data.registryData
+      this.$chart.showUseOneWeek('chart', this.optionData)
+    }.bind(this)).catch(function (err) {
+      console.log(err)
+    })
   },
   methods: {
     init () {
