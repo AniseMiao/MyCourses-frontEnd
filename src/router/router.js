@@ -12,7 +12,7 @@ import ReviewCreateCourses from '../components/Admin/reviewCreateCourse'
 import ReviewOpenCourses from '../components/Admin/reviewOpenCourse'
 import TopNav from '../components/topNav'
 import LeftNav from '../components/leftNav'
-import { eraseCookie } from '../lib/cookie'
+import { eraseCookie, readCookie } from '../lib/cookie'
 
 Vue.use(Router)
 const routes = [
@@ -129,6 +129,8 @@ router.beforeEach((route, redirect, next) => {
     eraseCookie('login')
     eraseCookie('type')
     next('/')
+  } else if (route.path === '/' && readCookie('login') !== null && readCookie('type') === 'Admin') {
+    next('/admin/homepage')
   } else {
     next()
   }

@@ -71,6 +71,9 @@ export default {
           result.then(function (res) {
             createCookie('login', this.loginForm.email, 1)
             createCookie('type', res.data, 1)
+            if (res.data === 3) {
+              this.$router.push('/admin/homepage')
+            }
             console.log(res)
           }.bind(this)).catch(function (err) {
             console.log(err)
@@ -127,7 +130,7 @@ export default {
           this.verificationCode = res.data
           this.$alert('验证码已发送至您的邮箱: ' + this.registryForm.email + ' ,请注意查收.', '验证码已发送', {
             confirmButtonText: '确定',
-            callback: action => {
+            callback: () => {
               LoadingInstance.close()
             }
           })
@@ -135,7 +138,7 @@ export default {
           console.log(err)
           this.$alert('验证码发送失败,请稍后重试.', '验证码发送失败', {
             confirmButtonText: '确定',
-            callback: action => {
+            callback: () => {
               LoadingInstance.close()
             }
           })

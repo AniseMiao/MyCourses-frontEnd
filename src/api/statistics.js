@@ -10,7 +10,14 @@ function getUseStatistics (that) {
     url: '/MyCourses/api/v1/statistics/showUse'
   })
 }
+function showTodoForAdmin (that) {
+  return that.$axios({
+    method: 'get',
+    url: '/MyCourses/api/v1/statistics/showTodoForAdmin'
+  })
+}
 export {
   getStatistics,
-  getUseStatistics
+  getUseStatistics,
+  showTodoForAdmin
 }
