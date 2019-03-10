@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '../views/Login'
@@ -10,6 +11,12 @@ import ShowStudents from '../components/Admin/showStudent'
 import ShowTeachers from '../components/Admin/showTeacher'
 import ReviewCreateCourses from '../components/Admin/reviewCreateCourse'
 import ReviewOpenCourses from '../components/Admin/reviewOpenCourse'
+import TeacherHomepage from '../views/Teacher/homepage'
+import HomepageMainTeacher from '../components/Teacher/home'
+import CreateCourse from '../components/Teacher/createCourse'
+import ManageCourse from '../components/Teacher/courseManage'
+import StudentHomepage from '../views/Student/homepage'
+import HomepageMainStudent from '../components/Student/home'
 import TopNav from '../components/topNav'
 import LeftNav from '../components/leftNav'
 import { eraseCookie, readCookie } from '../lib/cookie'
@@ -113,6 +120,58 @@ const routes = [
     }]
   },
   {
+    path: '/teacher/homepage',
+    name: 'teacherHomepage',
+    component: TeacherHomepage,
+    children: [{
+      path: '',
+      components: {
+        topNav: TopNav,
+        leftNav: LeftNav,
+        main: HomepageMainTeacher
+      }
+    }]
+  },
+  {
+    path: '/teacher/createCourse',
+    name: 'teacherCreateCourse',
+    component: TeacherHomepage,
+    children: [{
+      path: '',
+      components: {
+        topNav: TopNav,
+        leftNav: LeftNav,
+        main: CreateCourse
+      }
+    }]
+  },
+  {
+    path: '/teacher/manageCourse',
+    name: 'teacherManageCourse',
+    component: TeacherHomepage,
+    children: [{
+      path: '',
+      components: {
+        topNav: TopNav,
+        leftNav: LeftNav,
+        main: ManageCourse
+      }
+    }]
+  },
+  {
+    path: '/student/homepage',
+    name: 'studentHomepage',
+    component: StudentHomepage,
+    children: [{
+      path: '',
+      components: {
+        topNav: TopNav,
+        leftNav: LeftNav,
+        main: HomepageMainStudent
+      }
+    }]
+  },
+  {
     path: '*',
     name: '404 Not Found',
     component: NotFound
@@ -129,8 +188,12 @@ router.beforeEach((route, redirect, next) => {
     eraseCookie('login')
     eraseCookie('type')
     next('/')
-  } else if (route.path === '/' && readCookie('login') !== null && readCookie('type') === 'Admin') {
+  } else if (route.path === '/' && readCookie('login') !== null && readCookie('type') == 3) {
     next('/admin/homepage')
+  } else if (route.path === '/' && readCookie('login') !== null && readCookie('type') == 2) {
+    next('/teacher/homepage')
+  } else if (route.path === '/' && readCookie('login') !== null && readCookie('type') == 1) {
+    next('/student/homepage')
   } else {
     next()
   }

@@ -14,7 +14,30 @@ function passCourse (that, courseId, state) {
     }
   })
 }
+function createCourse (that, coursename, teacheremail, teachername, courseinfo) {
+  return that.$axios({
+    method: 'post',
+    url: 'MyCourses/api/v1/course/createCourse',
+    params: {
+      courseName: coursename,
+      email: teacheremail,
+      username: teachername,
+      info: courseinfo
+    }
+  })
+}
+function getMyCourses (that, email) {
+  return that.$axios({
+    method: 'get',
+    url: 'MyCourses/api/v1/course/getMyCourses',
+    params: {
+      email: email
+    }
+  })
+}
 export {
   getNotCheckedCourses,
-  passCourse
+  passCourse,
+  createCourse,
+  getMyCourses
 }

@@ -5,18 +5,14 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    topNavState: 'admin',
-    leftNavState: 'admin'
+    topNavState: '',
+    leftNavState: ''
   },
   mutations: {
     head (h) {
       this.state.headState = h
-    },
-    changeNav (state, context) {
-      state = context
     }
   },
   actions: {
-
   }
 })

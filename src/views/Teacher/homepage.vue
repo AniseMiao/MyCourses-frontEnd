@@ -7,7 +7,7 @@
       <el-aside class="asideNavigation" width="200px">
         <router-view name="leftNav"></router-view>
       </el-aside>
-      <el-main class="studentHomepageMain">
+      <el-main class="teacherHomepageMain">
         <router-view name="main"></router-view>
       </el-main>
     </el-container>
@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: 'studentHomepage'
+  name: 'teacherHomepage'
 }
 </script>
 

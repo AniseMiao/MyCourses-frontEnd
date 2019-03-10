@@ -49,7 +49,7 @@ function getUser (that, email) {
 function modifyUser (that, email, username, userNumber) {
   return that.$axios({
     method: 'post',
-    url: '/MyCourses/api/v1/user/modifyUser',
+    url: '/MyCourses/api/v1/user/modifyInformation',
     params: {
       email: email,
       username: username,

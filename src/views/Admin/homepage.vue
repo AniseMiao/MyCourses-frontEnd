@@ -16,20 +16,7 @@
 
 <script>
 export default {
-  name: 'adminHomepage',
-  mounted: function () {
-    console.log('mounted' + this.name)
-  },
-  methods: {
-    init () {
-      console.log('init')
-    }
-  },
-  data () {
-    return {
-      username: ''
-    }
-  }
+  name: 'adminHomepage'
 }
 </script>
 

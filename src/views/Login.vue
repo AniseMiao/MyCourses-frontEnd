@@ -48,7 +48,6 @@
         </el-tab-pane>
       </el-tabs>
     </transition>
-    <!-- <div id="chart1"></div> -->
   </div>
 </template>
 
@@ -61,7 +60,6 @@ export default {
   name: 'login',
   mounted: function () {
     this.loginShow = true
-    // this.$chart.line1('chart1')
   },
   methods: {
     submitLoginForm () {
@@ -71,8 +69,20 @@ export default {
           result.then(function (res) {
             createCookie('login', this.loginForm.email, 1)
             createCookie('type', res.data, 1)
-            if (res.data === 3) {
+            if (res.data === 1) {
+              this.$router.push('/student/homepage')
+              this.$store.state.topNavState = 'student'
+              this.$store.state.leftNavState = 'student'
+            } else if (res.data === 2) {
+              this.$router.push('/teacher/homepage')
+              this.$store.state.topNavState = 'teacher'
+              this.$store.state.leftNavState = 'teacher'
+            } else if (res.data === 3) {
               this.$router.push('/admin/homepage')
+              this.$store.state.topNavState = 'admin'
+              this.$store.state.leftNavState = 'admin'
+            } else {
+              this.showMsg(this, 'error', '您的用户名或密码不正确，或该账户已注销')
             }
             console.log(res)
           }.bind(this)).catch(function (err) {

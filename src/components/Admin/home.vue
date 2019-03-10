@@ -10,6 +10,8 @@
 <script>
 
 import { showTodoForAdmin } from '../../api/statistics'
+import { getUser } from '../../api/user'
+import { readCookie } from '../../lib/cookie'
 
 export default {
   name: 'home',
@@ -23,12 +25,16 @@ export default {
     }.bind(this)).catch(function (err) {
       console.log(err)
     })
+    let result2 = getUser(this, readCookie('login'))
+    result2.then(function (res) {
+      console.log(res)
+      this.username = res.data.userName
+    }.bind(this)).catch(function (err) {
+      console.log(err)
+    })
     console.log('mounted')
   },
   methods: {
-    init () {
-      console.log('init')
-    },
     checkCreate () {
       this.$router.push('/admin/reviewCreateCourses')
     },
@@ -41,7 +47,7 @@ export default {
   },
   data () {
     return {
-      username: 'Admin',
+      username: '',
       createCourseNum: 0,
       openCourseNum: 0,
       logNum: 0,
