@@ -15,6 +15,10 @@ import TeacherHomepage from '../views/Teacher/homepage'
 import HomepageMainTeacher from '../components/Teacher/home'
 import CreateCourse from '../components/Teacher/createCourse'
 import ManageCourse from '../components/Teacher/courseManage'
+import ManageCourseDetail from '../components/Teacher/courseManageDetail'
+import CourseForum from '../components/Teacher/courseForum'
+import OpenCourse from '../components/Teacher/openCourse'
+import OpenCourseDetail from '../components/Teacher/openCourseDetail'
 import StudentHomepage from '../views/Student/homepage'
 import HomepageMainStudent from '../components/Student/home'
 import TopNav from '../components/topNav'
@@ -155,6 +159,58 @@ const routes = [
         topNav: TopNav,
         leftNav: LeftNav,
         main: ManageCourse
+      }
+    }]
+  },
+  {
+    path: '/teacher/manageCourse/detail',
+    name: 'teacherManageCourseDetail',
+    component: TeacherHomepage,
+    children: [{
+      path: '',
+      components: {
+        topNav: TopNav,
+        leftNav: LeftNav,
+        main: ManageCourseDetail
+      }
+    }]
+  },
+  {
+    path: '/teacher/manageCourse/detail/forum',
+    name: 'teacherManageCourseForum',
+    component: TeacherHomepage,
+    children: [{
+      path: '',
+      components: {
+        topNav: TopNav,
+        leftNav: LeftNav,
+        main: CourseForum
+      }
+    }]
+  },
+  {
+    path: '/teacher/openCourse',
+    name: 'teacherOpenCourse',
+    component: TeacherHomepage,
+    children: [{
+      path: '',
+      components: {
+        topNav: TopNav,
+        leftNav: LeftNav,
+        main: OpenCourse
+      }
+    }]
+  },
+  {
+    path: '/teacher/openCourse/detail',
+    name: 'teacherOpenCourseDetail',
+    component: TeacherHomepage,
+    children: [{
+      path: '',
+      components: {
+        topNav: TopNav,
+        leftNav: LeftNav,
+        main: OpenCourseDetail
       }
     }]
   },

@@ -71,7 +71,7 @@ export default {
       },
       courseRules: {
         courseName: [
-          { required: true, message: '请输入活动名称', trigger: 'blur' }
+          { required: true, message: '请输入课程名称', trigger: 'blur' }
         ],
         courseInfo: [
           { max: 50, message: '简介不得超过50个字符!', trigger: 'blur' }

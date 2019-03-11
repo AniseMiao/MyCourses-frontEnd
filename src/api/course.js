@@ -35,9 +35,42 @@ function getMyCourses (that, email) {
     }
   })
 }
+function getAllCourseWares (that, courseId) {
+  return that.$axios({
+    method: 'get',
+    url: 'MyCourses/api/v1/course/getCourseWare',
+    params: {
+      courseId: courseId
+    }
+  })
+}
+function downloadCourseWare (that, courseId, courseWareName) {
+  return that.$axios({
+    method: 'get',
+    url: 'MyCourses/api/v1/course/downloadCourseWare',
+    params: {
+      courseId: courseId,
+      fileName: courseWareName
+    },
+    responseType: 'blob'
+  })
+}
+function deleteCourseWare (that, courseId, courseWareName) {
+  return that.$axios({
+    method: 'get',
+    url: 'MyCourses/api/v1/course/deleteCourseWare',
+    params: {
+      courseId: courseId,
+      courseWareName: courseWareName
+    },
+  })
+}
 export {
   getNotCheckedCourses,
   passCourse,
   createCourse,
-  getMyCourses
+  getMyCourses,
+  getAllCourseWares,
+  downloadCourseWare,
+  deleteCourseWare
 }

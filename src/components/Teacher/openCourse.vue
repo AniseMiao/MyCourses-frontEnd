@@ -23,7 +23,7 @@
           <el-button
             size="mini"
             type="success"
-            @click="intoCourse(scope.row.courseId, scope.row.isPassed)">开设课程</el-button>
+            @click="intoCourse(scope.row.courseId, scope.row.isPassed, scope.row.courseName)">开设课程</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -37,7 +37,6 @@ import { readCookie } from '../../lib/cookie'
 export default {
   name: 'openCourse',
   mounted: function () {
-    this.init()
     let result = getMyCourses(this, readCookie('login'))
     result.then(function (res) {
       console.log(res)
@@ -47,10 +46,7 @@ export default {
     })
   },
   methods: {
-    init () {
-      console.log('courseManage' + 'init')
-    },
-    intoCourse (id, status) {
+    intoCourse (id, status, name) {
       if (status === 0 || status === -1) {
         this.$confirm('该课程尚未审批或审批不通过，不能开设课程！', '系统提示', {
           confirmButtonText: '确定',
@@ -60,7 +56,8 @@ export default {
         this.$router.push({
           path: '/teacher/openCourse/detail',
           query: {
-            courseId: id
+            courseId: id,
+            courseName: name
           }
         })
       }

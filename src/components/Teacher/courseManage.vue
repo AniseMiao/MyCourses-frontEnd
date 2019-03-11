@@ -22,8 +22,8 @@
       <template slot-scope="scope">
         <el-button
           size="mini"
-          type="success"
-          @click="intoCourse(scope.row.courseId, scope.row.isPassed)">管理课程</el-button>
+          type="primary"
+          @click="intoCourse(scope.row.courseId, scope.row.isPassed, scope.row.courseName)">管理课程</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -50,7 +50,7 @@ export default {
     init () {
       console.log('courseManage' + 'init')
     },
-    intoCourse (id, status) {
+    intoCourse (id, status, name) {
       if (status === 0 || status === -1) {
         this.$confirm('该课程尚未审批或审批不通过，不能管理课程信息！', '系统提示', {
           confirmButtonText: '确定',
@@ -60,7 +60,8 @@ export default {
         this.$router.push({
           path: '/teacher/manageCourse/detail',
           query: {
-            courseId: id
+            courseId: id,
+            courseName: name
           }
         })
       }

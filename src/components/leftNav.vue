@@ -156,7 +156,6 @@ export default {
   },
   methods: {
     logout () {
-      console.log('success')
       eraseCookie('login')
       eraseCookie('type')
       this.$router.push('/')
@@ -175,8 +174,19 @@ export default {
       }.bind(this))
     },
     deleteUser () {
-      closeUser(this, this.userEmail)
-      this.logout()
+      this.$confirm('此操作将注销您的账户, 今后无法使用，除非用同一邮箱再次注册，是否确定?', '警告', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        closeUser(this, this.userEmail)
+        this.logout()
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消注销'
+        })
+      })
     },
     showProfile () {
       this.profileVisible = true
