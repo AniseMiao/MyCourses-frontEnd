@@ -19,6 +19,8 @@ import ManageCourseDetail from '../components/Teacher/courseManageDetail'
 import CourseForum from '../components/Teacher/courseForum'
 import OpenCourse from '../components/Teacher/openCourse'
 import OpenCourseDetail from '../components/Teacher/openCourseDetail'
+import ManageSemester from '../components/Teacher/manageSemester'
+import ManageSemesterDetail from '../components/Teacher/semesterManageDetail'
 import StudentHomepage from '../views/Student/homepage'
 import HomepageMainStudent from '../components/Student/home'
 import TopNav from '../components/topNav'
@@ -211,6 +213,32 @@ const routes = [
         topNav: TopNav,
         leftNav: LeftNav,
         main: OpenCourseDetail
+      }
+    }]
+  },
+  {
+    path: '/teacher/manageSemester',
+    name: 'teacherManageSemester',
+    component: TeacherHomepage,
+    children: [{
+      path: '',
+      components: {
+        topNav: TopNav,
+        leftNav: LeftNav,
+        main: ManageSemester
+      }
+    }]
+  },
+  {
+    path: '/teacher/manageSemester/detail',
+    name: 'teacherManageSemesterDetail',
+    component: TeacherHomepage,
+    children: [{
+      path: '',
+      components: {
+        topNav: TopNav,
+        leftNav: LeftNav,
+        main: ManageSemesterDetail
       }
     }]
   },

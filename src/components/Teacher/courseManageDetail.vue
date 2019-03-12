@@ -1,10 +1,11 @@
 <template>
 <div>
   <span>课程名：{{courseName}}</span>
-  <br>
-  <el-button type="primary" @click="gotoForum">进入课程论坛</el-button>
-  <br>
+  <br><br>
+  <el-button type="primary" size="small" @click="gotoForum">进入课程论坛</el-button>
+  <br><br>
   <span>课件管理</span>
+  <br><br>
   <el-table
     :data="courseWareData"
     style="width: 100%">
@@ -21,10 +22,19 @@
         <el-button
           size="mini"
           type="danger"
-          @click="delete(scope.row.courseWareName)">删除课件</el-button>
+          @click="deleteFile(scope.row.courseWareName)">删除课件</el-button>
       </template>
     </el-table-column>
   </el-table>
+  <br>
+  <el-upload
+    action="/MyCourses/api/v1/course/uploadCourseWare"
+    :before-upload="addFilename"
+    :on-success="handleSuccess"
+    :data="uploadIndex"
+    :file-list="fileList">
+    <el-button size="small" type="primary">上传课件</el-button>
+  </el-upload>
 </div>
 </template>
 
@@ -34,7 +44,7 @@ import { downloadCourseWare, deleteCourseWare, getAllCourseWares } from '../../a
 export default {
   name: 'courseManageDetail',
   mounted: function () {
-    this.init()
+    this.uploadIndex.courseId = this.$route.query.courseId
     this.courseName = this.$route.query.courseName
     let result = getAllCourseWares(this, this.$route.query.courseId)
     result.then(function (res) {
@@ -54,7 +64,7 @@ export default {
     },
     gotoForum () {
       this.$router.push({
-        path: '/teacher/courseManage/detail/forum',
+        path: '/teacher/manageCourse/detail/forum',
         query: {
           courseId: this.$route.query.courseId
         }
@@ -77,26 +87,50 @@ export default {
         console.log(err)
       })
     },
-    delete (filename) {
+    deleteFile (filename) {
       this.$confirm('此操作将删除该课件，是否确定?', '警告', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        deleteCourseWare(this, this.$route.query.courseId, filename)
-        this.logout()
+        deleteCourseWare(this, this.$route.query.courseId, filename).then(function () {
+          let result = getAllCourseWares(this, this.$route.query.courseId)
+          result.then(function (res) {
+            console.log(res)
+            this.courseWareData = []
+            for (let i = 0; i < res.data.length; i++) {
+              this.courseWareData.push({
+                courseWareName: res.data[i]
+              })
+            }
+          }.bind(this)).catch(function (err) {
+            console.log(err)
+          })
+        })
       }).catch(() => {
         this.$message({
           type: 'info',
-          message: '已取消注销'
+          message: '已取消删除'
         })
       })
+    },
+    addFilename (file) {
+      this.uploadIndex.filename = file.name
+    },
+    handleSuccess (response, file, fileList) {
+      this.$router.go(0)
     }
   },
   data () {
     return {
+      uploadIndex: {
+        courseId: '',
+        filename: ''
+      },
+      courseId: '',
       courseName: '',
-      courseWareData: []
+      courseWareData: [],
+      fileList: []
     }
   }
 }

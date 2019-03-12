@@ -99,9 +99,7 @@
     <el-button type="primary" @click="profileVisible = false">取 消</el-button>
   </span>
     </el-dialog>
-
   </div>
-
 </template>
 
 <script>

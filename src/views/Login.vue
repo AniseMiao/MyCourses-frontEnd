@@ -67,8 +67,8 @@ export default {
         if (valid) {
           let result = login(this, this.loginForm.email, this.loginForm.password)
           result.then(function (res) {
-            createCookie('login', this.loginForm.email, 1)
-            createCookie('type', res.data, 1)
+            createCookie('login', this.loginForm.email, 3)
+            createCookie('type', res.data, 3)
             if (res.data === 1) {
               this.$router.push('/student/homepage')
               this.$store.state.topNavState = 'student'

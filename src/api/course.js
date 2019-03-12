@@ -57,12 +57,55 @@ function downloadCourseWare (that, courseId, courseWareName) {
 }
 function deleteCourseWare (that, courseId, courseWareName) {
   return that.$axios({
-    method: 'get',
+    method: 'post',
     url: 'MyCourses/api/v1/course/deleteCourseWare',
     params: {
       courseId: courseId,
       courseWareName: courseWareName
-    },
+    }
+  })
+}
+function getForumData (that, courseId) {
+  return that.$axios({
+    method: 'get',
+    url: 'MyCourses/api/v1/course/getForumData',
+    params: {
+      courseId: courseId
+    }
+  })
+}
+function getCommentReply (that, commentFatherId) {
+  return that.$axios({
+    method: 'get',
+    url: 'MyCourses/api/v1/course/getCommentReplies',
+    params: {
+      commentFatherId: commentFatherId
+    }
+  })
+}
+function postComment (that, courseId, userEmail, commentTitle, commentContent) {
+  return that.$axios({
+    method: 'post',
+    url: 'MyCourses/api/v1/course/postComment',
+    params: {
+      courseId: courseId,
+      userEmail: userEmail,
+      commentTitle: commentTitle,
+      commentContent: commentContent
+    }
+  })
+}
+function replyComment (that, courseId, commentFatherId, userEmail, commentTitle, commentContent) {
+  return that.$axios({
+    method: 'post',
+    url: 'MyCourses/api/v1/course/replyComment',
+    params: {
+      courseId: courseId,
+      commentFatherId: commentFatherId,
+      userEmail: userEmail,
+      commentTitle: commentTitle,
+      commentContent: commentContent
+    }
   })
 }
 export {
@@ -72,5 +115,9 @@ export {
   getMyCourses,
   getAllCourseWares,
   downloadCourseWare,
-  deleteCourseWare
+  deleteCourseWare,
+  getForumData,
+  getCommentReply,
+  postComment,
+  replyComment
 }
