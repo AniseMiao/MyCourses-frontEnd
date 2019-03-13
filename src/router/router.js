@@ -31,6 +31,8 @@ import QuitCourse from '../components/Student/quitCourse'
 import StudyCourse from '../components/Student/studyCourse'
 import StudyCourseDetail from '../components/Student/studyCourseDetail'
 import StudentForum from '../components/Student/courseForum'
+import ShowSelectCourse from '../components/Student/showSelectCourse'
+import ShowScoreForStudent from '../components/Student/showScore'
 import TopNav from '../components/topNav'
 import LeftNav from '../components/leftNav'
 import { eraseCookie, readCookie } from '../lib/cookie'
@@ -368,6 +370,32 @@ const routes = [
     }]
   },
   {
+    path: '/student/showSelectCourse',
+    name: 'studentShowSelectCourse',
+    component: StudentHomepage,
+    children: [{
+      path: '',
+      components: {
+        topNav: TopNav,
+        leftNav: LeftNav,
+        main: ShowSelectCourse
+      }
+    }]
+  },
+  {
+    path: '/student/showScore',
+    name: 'studentShowScore',
+    component: StudentHomepage,
+    children: [{
+      path: '',
+      components: {
+        topNav: TopNav,
+        leftNav: LeftNav,
+        main: ShowScoreForStudent
+      }
+    }]
+  },
+  {
     path: '*',
     name: '404 Not Found',
     component: NotFound
@@ -390,32 +418,9 @@ router.beforeEach((route, redirect, next) => {
     next('/teacher/homepage')
   } else if (route.path === '/' && readCookie('login') !== null && readCookie('type') == 1) {
     next('/student/homepage')
+  } else if (readCookie('login') === null && route.path !== '/') {
+    next('/')
   } else {
     next()
   }
 })
-/**
-router.beforeEach((route, redirect, next) => {
-  // 如果没有登录，跳转至登录页面
-  if (route.path !== '/' && !_global.getCookieForRouter('username') && route.name !== '404 Not Found') {
-    _global.setCookieForRouter('notLogin', 'true', 1000 * 60 * 60 * 24 * 15)
-    next({ path: '/', query: { redirect: route.fullPath } })
-    // go(0)原地刷新可以解决mounted不执行的问题
-    router.go(0)
-  } else {
-    next()
-  }
-  // 如果已经登陆成功，那么跳转至主页
-  if (route.path === '/' && _global.getCookieForRouter('username')) {
-    let userTypeForRouter = _global.getCookieForRouter('userType')
-    let userNameForRouter = _global.getCookieForRouter('username')
-    if (userTypeForRouter === 'user') {
-      next({ path: '/Homepage', query: { username: userNameForRouter } })
-    } else if (userTypeForRouter === 'admin') {
-      next({ path: '/AdminBackground', query: { username: userNameForRouter } })
-    } else {
-      next()
-    }
-  }
-})
-**/

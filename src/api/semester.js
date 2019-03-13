@@ -160,6 +160,24 @@ function downloadMyHomework (that, semesterId, taskId, courseId, fileName) {
     responseType: 'blob'
   })
 }
+function showSelectCourseData (that, email) {
+  return that.$axios({
+    method: 'get',
+    url: '/MyCourses/api/v1/semester/showSelectCourseData',
+    params: {
+      email: email
+    }
+  })
+}
+function showScore (that, email) {
+  return that.$axios({
+    method: 'get',
+    url: '/MyCourses/api/v1/semester/showScore',
+    params: {
+      email: email
+    }
+  })
+}
 export {
   getNotCheckedSemesterCourses,
   passSemesterCourse,
@@ -176,5 +194,7 @@ export {
   getPassedCourses,
   getSelectedCourses,
   quitCourse,
-  downloadMyHomework
+  downloadMyHomework,
+  showSelectCourseData,
+  showScore
 }

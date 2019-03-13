@@ -62,8 +62,7 @@
             <i class="el-icon-menu"></i>
             <span>统计信息</span>
           </template>
-          <el-menu-item index="/student/showSelectCourse">查看选课信息</el-menu-item>
-          <el-menu-item index="/student/showQuitCourse">查看退课信息</el-menu-item>
+          <el-menu-item index="/student/showSelectCourse">查看选退课信息</el-menu-item>
           <el-menu-item index="/student/showScore">查看成绩信息</el-menu-item>
         </el-submenu>
         <el-submenu index="4">

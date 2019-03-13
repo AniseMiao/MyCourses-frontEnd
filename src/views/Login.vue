@@ -102,13 +102,7 @@ export default {
           result.then(function (res) {
             console.log(res)
             if (res.data === true) {
-              let type = this.userType
-              switch (type) {
-                case 'Student':
-                  break
-                case 'Teacher':
-                  break
-              }
+              this.showMsg(this, 'success', '注册成功')
             } else {
               this.showMsg(this, 'error', '注册失败，您的账号可能已经被注册')
             }
