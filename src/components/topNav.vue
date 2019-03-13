@@ -1,49 +1,52 @@
 <template>
   <div>
     <el-row v-show="userType === 'Admin'">
-    <el-col :span="3">
-      <el-button type="text" icon="el-icon-menu" style="padding-top: 15px;padding-bottom: 0px; padding-left: 15px" @click="goToHomepage">
-        MyCourses
-        <p></p>
-      </el-button>
-    </el-col>
-    <el-col :span="19">
-      <el-menu
-        mode="horizontal"
-        background-color="#373d41"
-        text-color="#fff"
-        active-text-color="#ffd04b"
-        :router="true"
-      >
-        <el-submenu index="1">
-          <template slot="title">课程管理</template>
-          <el-menu-item index="/admin/reviewCreateCourses">建课审核</el-menu-item>
-          <el-menu-item index="/admin/reviewOpenCourses">开课审核</el-menu-item>
-        </el-submenu>
-        <el-submenu index="2">
-          <template slot="title">统计信息</template>
-          <el-menu-item index="/admin/showTeachers">查看教师信息</el-menu-item>
-          <el-menu-item index="/admin/showStudents">查看学生信息</el-menu-item>
-          <el-menu-item index="/admin/showUse">查看站点使用情况</el-menu-item>
-          <el-menu-item index="/admin/showLog">查看系统日志</el-menu-item>
-        </el-submenu>
-      </el-menu>
-    </el-col>
-    <el-col :span="1">
-      <el-dropdown>
-        <el-button type="text" icon="el-icon-setting" style="padding-top: 20px;padding-bottom: 0px;">{{username}}</el-button>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item @click.native="showProfile">个人资料</el-dropdown-item>
-          <el-dropdown-item @click.native="logout">登出</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-    </el-col>
-  </el-row>
+      <el-col :span="3">
+        <el-button type="text" icon="el-icon-menu" style="padding-top: 15px;padding-bottom: 0px; padding-left: 15px"
+                   @click="goToHomepage">
+          MyCourses
+          <p></p>
+        </el-button>
+      </el-col>
+      <el-col :span="19">
+        <el-menu
+          mode="horizontal"
+          background-color="#373d41"
+          text-color="#fff"
+          active-text-color="#ffd04b"
+          :router="true"
+        >
+          <el-submenu index="1">
+            <template slot="title">课程管理</template>
+            <el-menu-item index="/admin/reviewCreateCourses">建课审核</el-menu-item>
+            <el-menu-item index="/admin/reviewOpenCourses">开课审核</el-menu-item>
+          </el-submenu>
+          <el-submenu index="2">
+            <template slot="title">统计信息</template>
+            <el-menu-item index="/admin/showTeachers">查看教师信息</el-menu-item>
+            <el-menu-item index="/admin/showStudents">查看学生信息</el-menu-item>
+            <el-menu-item index="/admin/showUse">查看站点使用情况</el-menu-item>
+            <el-menu-item index="/admin/showLog">查看系统日志</el-menu-item>
+          </el-submenu>
+        </el-menu>
+      </el-col>
+      <el-col :span="1">
+        <el-dropdown>
+          <el-button type="text" icon="el-icon-setting" style="padding-top: 20px;padding-bottom: 0px;">{{username}}
+          </el-button>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item @click.native="showProfile">个人资料</el-dropdown-item>
+            <el-dropdown-item @click.native="logout">登出</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </el-col>
+    </el-row>
     <el-row v-show="userType === 'Student'">
     </el-row>
     <el-row v-show="userType === 'Teacher'">
       <el-col :span="3">
-        <el-button type="text" icon="el-icon-menu" style="padding-top: 15px;padding-bottom: 0px; padding-left: 15px" @click="goToHomepage">
+        <el-button type="text" icon="el-icon-menu" style="padding-top: 15px;padding-bottom: 0px; padding-left: 15px"
+                   @click="goToHomepage">
           MyCourses
           <p></p>
         </el-button>
@@ -77,7 +80,8 @@
       </el-col>
       <el-col :span="1">
         <el-dropdown>
-          <el-button type="text" icon="el-icon-setting" style="padding-top: 20px;padding-bottom: 0px;">{{username}}</el-button>
+          <el-button type="text" icon="el-icon-setting" style="padding-top: 20px;padding-bottom: 0px;">{{username}}
+          </el-button>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item @click.native="showProfile">个人资料</el-dropdown-item>
             <el-dropdown-item @click.native="deleteUser">注销账户</el-dropdown-item>
@@ -90,8 +94,8 @@
       title="个人信息"
       :visible.sync="profileVisible"
       width="30%">
-      <span>邮箱: <el-input v-model="userEmail" :readonly="true" ></el-input></span>
-      <span>密码: <el-input show-password v-model="userPassword" :readonly="true" ></el-input></span>
+      <span>邮箱: <el-input v-model="userEmail" :readonly="true"></el-input></span>
+      <span>密码: <el-input show-password v-model="userPassword" :readonly="true"></el-input></span>
       <span>用户名: <el-input v-model="username"></el-input></span>
       <span>学号/工号: <el-input v-model="userNumber"></el-input></span>
       <span slot="footer" class="dialog-footer">
@@ -105,6 +109,7 @@
 <script>
 import { readCookie, eraseCookie } from '../lib/cookie'
 import { closeUser, getUser, modifyUser } from '../api/user'
+
 export default {
   name: 'topNav',
   mounted: function () {

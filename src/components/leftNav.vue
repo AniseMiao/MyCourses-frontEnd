@@ -12,8 +12,8 @@
             <i class="el-icon-edit"></i>
             <span>课程审核</span>
           </template>
-            <el-menu-item index="/admin/reviewCreateCourses">建课审核</el-menu-item>
-            <el-menu-item index="/admin/reviewOpenCourses">开课审核</el-menu-item>
+          <el-menu-item index="/admin/reviewCreateCourses">建课审核</el-menu-item>
+          <el-menu-item index="/admin/reviewOpenCourses">开课审核</el-menu-item>
         </el-submenu>
         <el-submenu index="2">
           <template slot="title">
@@ -30,8 +30,10 @@
             <i class="el-icon-setting"></i>
             <span>个人设置</span>
           </template>
-            <el-menu-item><el-button type="text" @click="showProfile">个人资料</el-button></el-menu-item>
-            <el-menu-item index="/admin/logout">登出</el-menu-item>
+          <el-menu-item>
+            <el-button type="text" @click="showProfile">个人资料</el-button>
+          </el-menu-item>
+          <el-menu-item index="/admin/logout">登出</el-menu-item>
         </el-submenu>
       </el-menu>
     </el-col>
@@ -71,8 +73,12 @@
             <i class="el-icon-setting"></i>
             <span>个人设置</span>
           </template>
-          <el-menu-item><el-button type="text" @click="showProfile">个人资料</el-button></el-menu-item>
-          <el-menu-item><el-button type="text" @click="deleteUser">注销账户</el-button></el-menu-item>
+          <el-menu-item>
+            <el-button type="text" @click="showProfile">个人资料</el-button>
+          </el-menu-item>
+          <el-menu-item>
+            <el-button type="text" @click="deleteUser">注销账户</el-button>
+          </el-menu-item>
           <el-menu-item index="/student/logout">登出</el-menu-item>
         </el-submenu>
       </el-menu>
@@ -114,8 +120,12 @@
             <i class="el-icon-setting"></i>
             <span>个人设置</span>
           </template>
-          <el-menu-item><el-button type="text" @click="showProfile">个人资料</el-button></el-menu-item>
-          <el-menu-item><el-button type="text" @click="deleteUser">注销账户</el-button></el-menu-item>
+          <el-menu-item>
+            <el-button type="text" @click="showProfile">个人资料</el-button>
+          </el-menu-item>
+          <el-menu-item>
+            <el-button type="text" @click="deleteUser">注销账户</el-button>
+          </el-menu-item>
           <el-menu-item index="/teacher/logout">登出</el-menu-item>
         </el-submenu>
       </el-menu>
@@ -124,8 +134,8 @@
       title="个人信息"
       :visible.sync="profileVisible"
       width="30%">
-      <span>邮箱: <el-input v-model="userEmail" :readonly="true" ></el-input></span>
-      <span>密码: <el-input show-password v-model="userPassword" :readonly="true" ></el-input></span>
+      <span>邮箱: <el-input v-model="userEmail" :readonly="true"></el-input></span>
+      <span>密码: <el-input show-password v-model="userPassword" :readonly="true"></el-input></span>
       <span>用户名: <el-input v-model="username"></el-input></span>
       <span>学号/工号: <el-input v-model="userNumber"></el-input></span>
       <span slot="footer" class="dialog-footer">
@@ -139,6 +149,7 @@
 <script>
 import { readCookie, eraseCookie } from '../lib/cookie'
 import { closeUser, getUser, modifyUser } from '../api/user'
+
 export default {
   name: 'leftNav',
   mounted: function () {

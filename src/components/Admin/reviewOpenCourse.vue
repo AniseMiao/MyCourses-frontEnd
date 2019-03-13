@@ -43,11 +43,13 @@
           <el-button
             size="mini"
             type="success"
-            @click="handlePass(scope.row.id, 1, scope.$index, courseData)">审核通过</el-button>
+            @click="handlePass(scope.row.id, 1, scope.$index, courseData)">审核通过
+          </el-button>
           <el-button
             size="mini"
             type="danger"
-            @click="handlePass(scope.row.id, -1, scope.$index, courseData)">审核不通过</el-button>
+            @click="handlePass(scope.row.id, -1, scope.$index, courseData)">审核不通过
+          </el-button>
         </template>
       </el-table-column>
     </el-table>

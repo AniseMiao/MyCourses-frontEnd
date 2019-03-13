@@ -1,33 +1,34 @@
 <template>
-<div>
-  <el-table
-    :data="courseData"
-    style="width: 100%">
-    <el-table-column
-      prop="courseId"
-      label="课程号"
-      width="300">
-    </el-table-column>
-    <el-table-column
-      prop="courseName"
-      label="课程名"
-      width="250">
-    </el-table-column>
-    <el-table-column
-      prop="isPassed"
-      label="是否通过"
-      width="100">
-    </el-table-column>
-    <el-table-column label="操作">
-      <template slot-scope="scope">
-        <el-button
-          size="mini"
-          type="primary"
-          @click="intoCourse(scope.row.courseId, scope.row.isPassed, scope.row.courseName)">管理课程</el-button>
-      </template>
-    </el-table-column>
-  </el-table>
-</div>
+  <div>
+    <el-table
+      :data="courseData"
+      style="width: 100%">
+      <el-table-column
+        prop="courseId"
+        label="课程号"
+        width="300">
+      </el-table-column>
+      <el-table-column
+        prop="courseName"
+        label="课程名"
+        width="250">
+      </el-table-column>
+      <el-table-column
+        prop="isPassed"
+        label="是否通过"
+        width="100">
+      </el-table-column>
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <el-button
+            size="mini"
+            type="primary"
+            @click="intoCourse(scope.row.courseId, scope.row.isPassed, scope.row.courseName)">管理课程
+          </el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+  </div>
 </template>
 
 <script>

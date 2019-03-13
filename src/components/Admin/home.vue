@@ -1,9 +1,13 @@
 <template>
   <div>
     <p>欢迎您，MyCourses主管 {{username}} </p>
-    <p>目前共有 <span style="color: red;">{{createCourseNum}}</span> 门课程创建信息等待审批 <el-button @click="checkCreate">立即审批</el-button>
-    <p>目前共有 <span style="color: red;">{{openCourseNum}}</span> 门课程开设信息等待审批 <el-button @click="checkOpen">立即审批</el-button>
-    <p>系统共有 <span style="color: red;">{{logNum}}</span> 条日志信息 <el-button @click="checkLog">立即查看</el-button></p>
+    <p>目前共有 <span style="color: red;">{{createCourseNum}}</span> 门课程创建信息等待审批
+      <el-button @click="checkCreate">立即审批</el-button>
+    <p>目前共有 <span style="color: red;">{{openCourseNum}}</span> 门课程开设信息等待审批
+      <el-button @click="checkOpen">立即审批</el-button>
+    <p>系统共有 <span style="color: red;">{{logNum}}</span> 条日志信息
+      <el-button @click="checkLog">立即查看</el-button>
+    </p>
   </div>
 </template>
 

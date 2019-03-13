@@ -15,9 +15,10 @@
               <el-button type="primary" @click="submitLoginForm">登陆</el-button>
             </el-form-item>
             <p>您浏览器的 cookies 设置必须打开
-            <el-tooltip effect="dark" content="如果您禁用cookies,会导致登陆验证失效" placement="right">
-              <i class="el-icon-question"></i>
-            </el-tooltip></p>
+              <el-tooltip effect="dark" content="如果您禁用cookies,会导致登陆验证失效" placement="right">
+                <i class="el-icon-question"></i>
+              </el-tooltip>
+            </p>
           </el-form>
         </el-tab-pane>
         <el-tab-pane label="注册" name="registryTab" @keyup.enter.native="submitRegistryForm">
@@ -34,7 +35,8 @@
             </el-form-item>
             <el-form-item label="验证码" prop="verificationCode">
               <el-input v-model="registryForm.verificationCode">
-                <el-button slot="append" :disabled="buttonDisabled" @click="sendVerificationCode">{{buttonName}}</el-button>
+                <el-button slot="append" :disabled="buttonDisabled" @click="sendVerificationCode">{{buttonName}}
+                </el-button>
               </el-input>
             </el-form-item>
             <el-form-item style="text-align: left">
@@ -133,7 +135,11 @@ export default {
         }
       }, 1000)
       if (this.registryForm.email.endsWith('nju.edu.cn')) {
-        let LoadingInstance = Loading.service({ fullscreen: true, background: 'rgba(0, 0, 0, 0.8)', text: '正在发送邮件，请稍等' })
+        let LoadingInstance = Loading.service({
+          fullscreen: true,
+          background: 'rgba(0, 0, 0, 0.8)',
+          text: '正在发送邮件，请稍等'
+        })
         let result = sendVerificationCode(that, this.registryForm.email)
         result.then(function (res) {
           console.log(res)
@@ -187,7 +193,7 @@ export default {
       }
     }
     let validateVerificationCode = (rule, value, cb) => {
-    // eslint-disable-next-line eqeqeq
+      // eslint-disable-next-line eqeqeq
       if (value.toString() === this.verificationCode.toString() && this.verificationCode !== null) {
         cb()
       } else {
@@ -257,6 +263,7 @@ export default {
     overflow-x: hidden;
     background: url("../assets/background.png") no-repeat;
   }
+
   .loginMain {
     text-align: center;
     width: 500px;

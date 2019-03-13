@@ -23,7 +23,8 @@
           <el-button
             size="mini"
             type="success"
-            @click="intoCourse(scope.row.courseId, scope.row.isPassed, scope.row.courseName)">开设课程</el-button>
+            @click="intoCourse(scope.row.courseId, scope.row.isPassed, scope.row.courseName)">开设课程
+          </el-button>
         </template>
       </el-table-column>
     </el-table>

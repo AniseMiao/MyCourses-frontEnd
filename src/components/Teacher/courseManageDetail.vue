@@ -1,41 +1,43 @@
 <template>
-<div>
-  <span>课程名：{{courseName}}</span>
-  <br><br>
-  <el-button type="primary" size="small" @click="gotoForum">进入课程论坛</el-button>
-  <br><br>
-  <span>课件管理</span>
-  <br><br>
-  <el-table
-    :data="courseWareData"
-    style="width: 100%">
-    <el-table-column
-      prop="courseWareName"
-      label="课件名称">
-    </el-table-column>
-    <el-table-column label="操作">
-      <template slot-scope="scope">
-        <el-button
-          size="mini"
-          type="primary"
-          @click="download(scope.row.courseWareName)">下载课件</el-button>
-        <el-button
-          size="mini"
-          type="danger"
-          @click="deleteFile(scope.row.courseWareName)">删除课件</el-button>
-      </template>
-    </el-table-column>
-  </el-table>
-  <br>
-  <el-upload
-    action="/MyCourses/api/v1/course/uploadCourseWare"
-    :before-upload="addFilename"
-    :on-success="handleSuccess"
-    :data="uploadIndex"
-    :file-list="fileList">
-    <el-button size="small" type="primary">上传课件</el-button>
-  </el-upload>
-</div>
+  <div>
+    <span>课程名：{{courseName}}</span>
+    <br><br>
+    <el-button type="primary" size="small" @click="gotoForum">进入课程论坛</el-button>
+    <br><br>
+    <span>课件管理</span>
+    <br><br>
+    <el-table
+      :data="courseWareData"
+      style="width: 100%">
+      <el-table-column
+        prop="courseWareName"
+        label="课件名称">
+      </el-table-column>
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <el-button
+            size="mini"
+            type="primary"
+            @click="download(scope.row.courseWareName)">下载课件
+          </el-button>
+          <el-button
+            size="mini"
+            type="danger"
+            @click="deleteFile(scope.row.courseWareName)">删除课件
+          </el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <br>
+    <el-upload
+      action="/MyCourses/api/v1/course/uploadCourseWare"
+      :before-upload="addFilename"
+      :on-success="handleSuccess"
+      :data="uploadIndex"
+      :file-list="fileList">
+      <el-button size="small" type="primary">上传课件</el-button>
+    </el-upload>
+  </div>
 </template>
 
 <script>

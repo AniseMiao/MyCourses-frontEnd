@@ -1,72 +1,9 @@
 <template>
-<div>
-  <el-button type="primary" size="mini" @click="createComment">发布新帖</el-button>
-  <br><br>
-  <el-table
-    :data="forumData"
-    style="width: 100%">
-    <el-table-column type="expand">
-      <template slot-scope="props">
-        <el-form label-position="left" inline>
-          <el-form-item label="帖子内容">
-            <span>{{ props.row.commentContent }}</span>
-          </el-form-item>
-        </el-form>
-      </template>
-    </el-table-column>
-    <el-table-column
-      prop="commentId"
-      label="帖子ID"
-      width="100">
-    </el-table-column>
-    <el-table-column
-      prop="userEmail"
-      label="发帖人"
-      width="250">
-    </el-table-column>
-    <el-table-column
-      prop="commentTitle"
-      label="标题"
-      width="200"
-    >
-    </el-table-column>
-    <el-table-column label="操作">
-      <template slot-scope="scope">
-        <el-button
-          size="mini"
-          type="primary"
-          @click="viewReplies(scope.row.commentId)">查看回帖</el-button>
-        <el-button
-          size="mini"
-          type="success"
-          @click="replyForumComment(scope.row.commentId)">回帖</el-button>
-      </template>
-    </el-table-column>
-  </el-table>
-  <el-dialog
-    title="发帖"
-    :visible.sync="postCommentVisible"
-    :before-close="handleClose">
-    <el-form :model="postCommentForm" :rules="postCommentRules" ref="postCommentForm" label-width="100px">
-      <el-form-item label="发帖人邮箱" prop="userEmail">
-        <el-input v-model="postCommentForm.userEmail" :readonly="true"></el-input>
-      </el-form-item>
-      <el-form-item label="发帖标题" prop="commentTitle">
-        <el-input v-model="postCommentForm.commentTitle"></el-input>
-      </el-form-item>
-      <el-form-item label="发帖内容" prop="commentContent">
-        <el-input type="textarea" :rows="2" v-model="postCommentForm.commentContent"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="submitPostForm('postCommentForm')">发帖</el-button>
-      </el-form-item>
-    </el-form>
-  </el-dialog>
-  <el-dialog
-    title="查看回帖"
-    :visible.sync="viewReplyVisible">
+  <div>
+    <el-button type="primary" size="mini" @click="createComment">发布新帖</el-button>
+    <br><br>
     <el-table
-      :data="replyData"
+      :data="forumData"
       style="width: 100%">
       <el-table-column type="expand">
         <template slot-scope="props">
@@ -93,34 +30,99 @@
         width="200"
       >
       </el-table-column>
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <el-button
+            size="mini"
+            type="primary"
+            @click="viewReplies(scope.row.commentId)">查看回帖
+          </el-button>
+          <el-button
+            size="mini"
+            type="success"
+            @click="replyForumComment(scope.row.commentId)">回帖
+          </el-button>
+        </template>
+      </el-table-column>
     </el-table>
-    <span slot="footer" class="dialog-footer">
+    <el-dialog
+      title="发帖"
+      :visible.sync="postCommentVisible"
+      :before-close="handleClose">
+      <el-form :model="postCommentForm" :rules="postCommentRules" ref="postCommentForm" label-width="100px">
+        <el-form-item label="发帖人邮箱" prop="userEmail">
+          <el-input v-model="postCommentForm.userEmail" :readonly="true"></el-input>
+        </el-form-item>
+        <el-form-item label="发帖标题" prop="commentTitle">
+          <el-input v-model="postCommentForm.commentTitle"></el-input>
+        </el-form-item>
+        <el-form-item label="发帖内容" prop="commentContent">
+          <el-input type="textarea" :rows="2" v-model="postCommentForm.commentContent"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitPostForm('postCommentForm')">发帖</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
+    <el-dialog
+      title="查看回帖"
+      :visible.sync="viewReplyVisible">
+      <el-table
+        :data="replyData"
+        style="width: 100%">
+        <el-table-column type="expand">
+          <template slot-scope="props">
+            <el-form label-position="left" inline>
+              <el-form-item label="帖子内容">
+                <span>{{ props.row.commentContent }}</span>
+              </el-form-item>
+            </el-form>
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop="commentId"
+          label="帖子ID"
+          width="100">
+        </el-table-column>
+        <el-table-column
+          prop="userEmail"
+          label="发帖人"
+          width="250">
+        </el-table-column>
+        <el-table-column
+          prop="commentTitle"
+          label="标题"
+          width="200"
+        >
+        </el-table-column>
+      </el-table>
+      <span slot="footer" class="dialog-footer">
     <el-button type="primary" @click="viewReplyVisible = false">确 定</el-button>
   </span>
-  </el-dialog>
-  <el-dialog
-  title="回帖"
-  :visible.sync="replyCommentVisible"
-  :before-close="handleClose">
-  <el-form :model="replyCommentForm" :rules="replyCommentRules" ref="replyCommentForm" label-width="100px">
-    <el-form-item label="父帖ID" prop="fatherCommentId">
-      <el-input v-model="replyCommentForm.fatherCommentId" :readonly="true"></el-input>
-    </el-form-item>
-    <el-form-item label="发帖人邮箱" prop="userEmail">
-      <el-input v-model="replyCommentForm.userEmail" :readonly="true"></el-input>
-    </el-form-item>
-    <el-form-item label="回帖标题" prop="commentTitle">
-      <el-input v-model="replyCommentForm.commentTitle"></el-input>
-    </el-form-item>
-    <el-form-item label="回帖内容" prop="commentContent">
-      <el-input type="textarea" :rows="2" v-model="replyCommentForm.commentContent"></el-input>
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitReplyForm('replyCommentForm')">回帖</el-button>
-    </el-form-item>
-  </el-form>
-</el-dialog>
-</div>
+    </el-dialog>
+    <el-dialog
+      title="回帖"
+      :visible.sync="replyCommentVisible"
+      :before-close="handleClose">
+      <el-form :model="replyCommentForm" :rules="replyCommentRules" ref="replyCommentForm" label-width="100px">
+        <el-form-item label="父帖ID" prop="fatherCommentId">
+          <el-input v-model="replyCommentForm.fatherCommentId" :readonly="true"></el-input>
+        </el-form-item>
+        <el-form-item label="发帖人邮箱" prop="userEmail">
+          <el-input v-model="replyCommentForm.userEmail" :readonly="true"></el-input>
+        </el-form-item>
+        <el-form-item label="回帖标题" prop="commentTitle">
+          <el-input v-model="replyCommentForm.commentTitle"></el-input>
+        </el-form-item>
+        <el-form-item label="回帖内容" prop="commentContent">
+          <el-input type="textarea" :rows="2" v-model="replyCommentForm.commentContent"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitReplyForm('replyCommentForm')">回帖</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
+  </div>
 </template>
 
 <script>
@@ -168,7 +170,8 @@ export default {
         .then(_ => {
           done()
         })
-        .catch(_ => {})
+        .catch(_ => {
+        })
     },
     submitPostForm (formName) {
       this.$refs[formName].validate((valid) => {

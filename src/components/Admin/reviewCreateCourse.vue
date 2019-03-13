@@ -1,37 +1,39 @@
 <template>
-<div>
-  <el-table
-    :data="courseData"
-    style="width: 100%">
-    <el-table-column
-      prop="courseId"
-      label="课程号"
-      width="300">
-    </el-table-column>
-    <el-table-column
-      prop="courseName"
-      label="课程名"
-      width="250">
-    </el-table-column>
-    <el-table-column
-      prop="courseTeacherEmail"
-      label="教师邮箱"
-      width="250">
-    </el-table-column>
-    <el-table-column label="操作">
-      <template slot-scope="scope">
-        <el-button
-          size="mini"
-          type="success"
-          @click="handlePass(scope.row.courseId, 1, scope.$index, courseData)">审核通过</el-button>
-        <el-button
-          size="mini"
-          type="danger"
-          @click="handlePass(scope.row.courseId, -1, scope.$index, courseData)">审核不通过</el-button>
-      </template>
-    </el-table-column>
-  </el-table>
-</div>
+  <div>
+    <el-table
+      :data="courseData"
+      style="width: 100%">
+      <el-table-column
+        prop="courseId"
+        label="课程号"
+        width="300">
+      </el-table-column>
+      <el-table-column
+        prop="courseName"
+        label="课程名"
+        width="250">
+      </el-table-column>
+      <el-table-column
+        prop="courseTeacherEmail"
+        label="教师邮箱"
+        width="250">
+      </el-table-column>
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <el-button
+            size="mini"
+            type="success"
+            @click="handlePass(scope.row.courseId, 1, scope.$index, courseData)">审核通过
+          </el-button>
+          <el-button
+            size="mini"
+            type="danger"
+            @click="handlePass(scope.row.courseId, -1, scope.$index, courseData)">审核不通过
+          </el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+  </div>
 </template>
 
 <script>

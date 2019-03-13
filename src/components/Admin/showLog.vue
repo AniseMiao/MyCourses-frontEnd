@@ -1,52 +1,53 @@
 <template>
-<div>
   <div>
-    <el-date-picker
-      v-model="defaultTime"
-      type="daterange"
-      :picker-options="pickerOptions"
-      range-separator="至"
-      start-placeholder="开始日期"
-      end-placeholder="结束日期"
-      align="right">
-    </el-date-picker>
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    <el-button type="primary" @click="search">查询</el-button>
+    <div>
+      <el-date-picker
+        v-model="defaultTime"
+        type="daterange"
+        :picker-options="pickerOptions"
+        range-separator="至"
+        start-placeholder="开始日期"
+        end-placeholder="结束日期"
+        align="right">
+      </el-date-picker>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <el-button type="primary" @click="search">查询</el-button>
+    </div>
+    <br/>
+    <el-table
+      :data="logData"
+      style="width: 100%">
+      <el-table-column
+        prop="id"
+        label="编号"
+        width="90">
+      </el-table-column>
+      <el-table-column
+        prop="email"
+        label="邮箱"
+        width="300">
+      </el-table-column>
+      <el-table-column
+        prop="action"
+        label="行为"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="additionalInfo"
+        label="备注"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="time"
+        label="时间">
+      </el-table-column>
+    </el-table>
   </div>
-  <br/>
-  <el-table
-    :data="logData"
-    style="width: 100%">
-    <el-table-column
-      prop="id"
-      label="编号"
-      width="90">
-    </el-table-column>
-    <el-table-column
-      prop="email"
-      label="邮箱"
-      width="300">
-    </el-table-column>
-    <el-table-column
-      prop="action"
-      label="行为"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="additionalInfo"
-      label="备注"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="time"
-      label="时间">
-    </el-table-column>
-  </el-table>
-</div>
 </template>
 
 <script>
 import { getStatistics } from '../../api/statistics'
+
 export default {
   name: 'showLog',
   mounted: function () {

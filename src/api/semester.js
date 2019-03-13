@@ -80,6 +80,39 @@ function getTasks (that, semesterId) {
     }
   })
 }
+function endCourse (that, semesterId) {
+  return that.$axios({
+    method: 'post',
+    url: '/MyCourses/api/v1/semester/endCourse',
+    params: {
+      semesterId: semesterId
+    }
+  })
+}
+function createTask (that, semesterId, taskTitle, taskInfo) {
+  return that.$axios({
+    method: 'post',
+    url: '/MyCourses/api/v1/semester/createTask',
+    params: {
+      semesterId: semesterId,
+      taskTitle: taskTitle,
+      taskInfo: taskInfo
+    }
+  })
+}
+function uploadScore (that, email, semesterId, taskId, score, isTotal) {
+  return that.$axios({
+    method: 'post',
+    url: '/MyCourses/api/v1/semester/uploadScore',
+    params: {
+      email: email,
+      semesterId: semesterId,
+      taskId: taskId,
+      score: score,
+      isTotal: isTotal
+    }
+  })
+}
 export {
   getNotCheckedSemesterCourses,
   passSemesterCourse,
@@ -88,5 +121,8 @@ export {
   startCourse,
   sendEmails,
   downloadHomeworks,
-  getTasks
+  getTasks,
+  endCourse,
+  createTask,
+  uploadScore
 }
