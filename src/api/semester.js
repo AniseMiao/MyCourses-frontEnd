@@ -113,6 +113,53 @@ function uploadScore (that, email, semesterId, taskId, score, isTotal) {
     }
   })
 }
+function selectCourse (that, email, semesterId) {
+  return that.$axios({
+    method: 'post',
+    url: '/MyCourses/api/v1/semester/selectCourse',
+    params: {
+      email: email,
+      semesterId: semesterId
+    }
+  })
+}
+function getPassedCourses (that) {
+  return that.$axios({
+    method: 'get',
+    url: '/MyCourses/api/v1/semester/getPassedCourses'
+  })
+}
+function getSelectedCourses (that, email) {
+  return that.$axios({
+    method: 'get',
+    url: '/MyCourses/api/v1/semester/getSelectedCourses',
+    params: {
+      email: email
+    }
+  })
+}
+function quitCourse (that, id) {
+  return that.$axios({
+    method: 'post',
+    url: '/MyCourses/api/v1/semester/quitCourse',
+    params: {
+      id: id
+    }
+  })
+}
+function downloadMyHomework (that, semesterId, taskId, courseId, fileName) {
+  return that.$axios({
+    method: 'get',
+    url: '/MyCourses/api/v1/semester/downloadMyHomework',
+    params: {
+      courseId: courseId,
+      semesterId: semesterId,
+      taskId: taskId,
+      fileName: fileName
+    },
+    responseType: 'blob'
+  })
+}
 export {
   getNotCheckedSemesterCourses,
   passSemesterCourse,
@@ -124,5 +171,10 @@ export {
   getTasks,
   endCourse,
   createTask,
-  uploadScore
+  uploadScore,
+  selectCourse,
+  getPassedCourses,
+  getSelectedCourses,
+  quitCourse,
+  downloadMyHomework
 }

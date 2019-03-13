@@ -21,8 +21,16 @@ import OpenCourse from '../components/Teacher/openCourse'
 import OpenCourseDetail from '../components/Teacher/openCourseDetail'
 import ManageSemester from '../components/Teacher/manageSemester'
 import ManageSemesterDetail from '../components/Teacher/semesterManageDetail'
+import ShowOpenCourse from '../components/Teacher/showOpenCourse'
+import showSelectCourse from '../components/Teacher/showSelectCourse'
+import ShowScore from '../components/Teacher/showScore'
 import StudentHomepage from '../views/Student/homepage'
 import HomepageMainStudent from '../components/Student/home'
+import SelectCourse from '../components/Student/selectCourse'
+import QuitCourse from '../components/Student/quitCourse'
+import StudyCourse from '../components/Student/studyCourse'
+import StudyCourseDetail from '../components/Student/studyCourseDetail'
+import StudentForum from '../components/Student/courseForum'
 import TopNav from '../components/topNav'
 import LeftNav from '../components/leftNav'
 import { eraseCookie, readCookie } from '../lib/cookie'
@@ -243,6 +251,45 @@ const routes = [
     }]
   },
   {
+    path: '/teacher/showOpenCourse',
+    name: 'teacherShowOpenCourse',
+    component: TeacherHomepage,
+    children: [{
+      path: '',
+      components: {
+        topNav: TopNav,
+        leftNav: LeftNav,
+        main: ShowOpenCourse
+      }
+    }]
+  },
+  {
+    path: '/teacher/showSelectCourse',
+    name: 'teacherShowSelectCourse',
+    component: TeacherHomepage,
+    children: [{
+      path: '',
+      components: {
+        topNav: TopNav,
+        leftNav: LeftNav,
+        main: showSelectCourse
+      }
+    }]
+  },
+  {
+    path: '/teacher/showScore',
+    name: 'teacherShowScore',
+    component: TeacherHomepage,
+    children: [{
+      path: '',
+      components: {
+        topNav: TopNav,
+        leftNav: LeftNav,
+        main: ShowScore
+      }
+    }]
+  },
+  {
     path: '/student/homepage',
     name: 'studentHomepage',
     component: StudentHomepage,
@@ -252,6 +299,71 @@ const routes = [
         topNav: TopNav,
         leftNav: LeftNav,
         main: HomepageMainStudent
+      }
+    }]
+  },
+  {
+    path: '/student/selectCourse',
+    name: 'studentSelectCourse',
+    component: StudentHomepage,
+    children: [{
+      path: '',
+      components: {
+        topNav: TopNav,
+        leftNav: LeftNav,
+        main: SelectCourse
+      }
+    }]
+  },
+  {
+    path: '/student/quitCourse',
+    name: 'studentQuitCourse',
+    component: StudentHomepage,
+    children: [{
+      path: '',
+      components: {
+        topNav: TopNav,
+        leftNav: LeftNav,
+        main: QuitCourse
+      }
+    }]
+  },
+  {
+    path: '/student/studyCourse',
+    name: 'studentStudyCourse',
+    component: StudentHomepage,
+    children: [{
+      path: '',
+      components: {
+        topNav: TopNav,
+        leftNav: LeftNav,
+        main: StudyCourse
+      }
+    }]
+  },
+  {
+    path: '/student/studyCourse/detail',
+    name: 'studentStudyCourseDetail',
+    component: StudentHomepage,
+    children: [{
+      path: '',
+      components: {
+        topNav: TopNav,
+        leftNav: LeftNav,
+        main: StudyCourseDetail
+      }
+    }]
+  },
+  {
+    path: '/student/studyCourse/detail/forum',
+    name: 'studentCourseForum',
+    component: StudentHomepage,
+    children: [{
+      path: '',
+      components: {
+        topNav: TopNav,
+        leftNav: LeftNav,
+        main: StudentForum
       }
     }]
   },

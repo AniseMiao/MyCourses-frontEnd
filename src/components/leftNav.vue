@@ -47,17 +47,15 @@
         <el-submenu index="1">
           <template slot="title">
             <i class="el-icon-edit"></i>
-            <span>课程管理</span>
-          </template>
-          <el-menu-item index="/student/selectCourse">选课</el-menu-item>
-          <el-menu-item index="/student/exitCourse">退课</el-menu-item>
+            <span>课程管理</span></template>
+          <el-menu-item index="/student/selectCourse">学期选课</el-menu-item>
+          <el-menu-item index="/student/quitCourse">退出课程</el-menu-item>
         </el-submenu>
         <el-submenu index="2">
           <template slot="title">
             <i class="el-icon-date"></i>
-            <span>课程学习</span>
-          </template>
-          <el-menu-item index="/student/studyCourse">学习课程</el-menu-item>
+            <span>课程学习</span></template>
+          <el-menu-item index="/student/studyCourse">课程学习</el-menu-item>
         </el-submenu>
         <el-submenu index="3">
           <template slot="title">
@@ -65,7 +63,7 @@
             <span>统计信息</span>
           </template>
           <el-menu-item index="/student/showSelectCourse">查看选课信息</el-menu-item>
-          <el-menu-item index="/student/showExitCourse">查看退课信息</el-menu-item>
+          <el-menu-item index="/student/showQuitCourse">查看退课信息</el-menu-item>
           <el-menu-item index="/student/showScore">查看成绩信息</el-menu-item>
         </el-submenu>
         <el-submenu index="4">
@@ -113,7 +111,7 @@
           </template>
           <el-menu-item index="/teacher/showOpenCourse">查看开课信息</el-menu-item>
           <el-menu-item index="/teacher/showSelectCourse">查看选课信息</el-menu-item>
-          <el-menu-item index="/teacher/showHomework">查看作业信息</el-menu-item>
+          <el-menu-item index="/teacher/showScore">查看成绩信息</el-menu-item>
         </el-submenu>
         <el-submenu index="4">
           <template slot="title">

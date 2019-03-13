@@ -42,6 +42,49 @@
       </el-col>
     </el-row>
     <el-row v-show="userType === 'Student'">
+      <el-col :span="3">
+        <el-button type="text" icon="el-icon-menu" style="padding-top: 15px;padding-bottom: 0px; padding-left: 15px"
+                   @click="goToHomepage">
+          MyCourses
+          <p></p>
+        </el-button>
+      </el-col>
+      <el-col :span="19">
+        <el-menu
+          mode="horizontal"
+          background-color="#373d41"
+          text-color="#fff"
+          active-text-color="#ffd04b"
+          :router="true"
+        >
+          <el-submenu index="1">
+            <template slot="title">课程管理</template>
+            <el-menu-item index="/student/selectCourse">学期选课</el-menu-item>
+            <el-menu-item index="/student/quitCourse">退出课程</el-menu-item>
+          </el-submenu>
+          <el-submenu index="2">
+            <template slot="title">课程学习</template>
+            <el-menu-item index="/student/studyCourse">课程学习</el-menu-item>
+          </el-submenu>
+          <el-submenu index="3">
+            <template slot="title">统计信息</template>
+            <el-menu-item index="/student/showSelectCourse">查看选课信息</el-menu-item>
+            <el-menu-item index="/student/showQuitCourse">查看退课信息</el-menu-item>
+            <el-menu-item index="/student/showScore">查看成绩信息</el-menu-item>
+          </el-submenu>
+        </el-menu>
+      </el-col>
+      <el-col :span="1">
+        <el-dropdown>
+          <el-button type="text" icon="el-icon-setting" style="padding-top: 20px;padding-bottom: 0px;">{{username}}
+          </el-button>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item @click.native="showProfile">个人资料</el-dropdown-item>
+            <el-dropdown-item @click.native="deleteUser">注销账户</el-dropdown-item>
+            <el-dropdown-item @click.native="logout">登出</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </el-col>
     </el-row>
     <el-row v-show="userType === 'Teacher'">
       <el-col :span="3">
@@ -73,7 +116,6 @@
             <template slot="title">统计信息</template>
             <el-menu-item index="/teacher/showOpenCourse">查看开课信息</el-menu-item>
             <el-menu-item index="/teacher/showSelectCourse">查看选课信息</el-menu-item>
-            <el-menu-item index="/teacher/showHomework">查看作业信息</el-menu-item>
             <el-menu-item index="/teacher/showScore">查看成绩信息</el-menu-item>
           </el-submenu>
         </el-menu>
