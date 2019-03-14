@@ -4,6 +4,7 @@ function getNotCheckedCourses (that) {
     url: '/MyCourses/api/v1/course/getNotCheckedCourses'
   })
 }
+
 function passCourse (that, courseId, state) {
   return that.$axios({
     method: 'post',
@@ -14,6 +15,7 @@ function passCourse (that, courseId, state) {
     }
   })
 }
+
 function createCourse (that, coursename, teacheremail, teachername, courseinfo) {
   return that.$axios({
     method: 'post',
@@ -26,6 +28,7 @@ function createCourse (that, coursename, teacheremail, teachername, courseinfo) 
     }
   })
 }
+
 function getMyCourses (that, email) {
   return that.$axios({
     method: 'get',
@@ -35,6 +38,7 @@ function getMyCourses (that, email) {
     }
   })
 }
+
 function getAllCourseWares (that, courseId) {
   return that.$axios({
     method: 'get',
@@ -44,6 +48,7 @@ function getAllCourseWares (that, courseId) {
     }
   })
 }
+
 function downloadCourseWare (that, courseId, courseWareName) {
   return that.$axios({
     method: 'get',
@@ -55,6 +60,7 @@ function downloadCourseWare (that, courseId, courseWareName) {
     responseType: 'blob'
   })
 }
+
 function deleteCourseWare (that, courseId, courseWareName) {
   return that.$axios({
     method: 'post',
@@ -65,6 +71,7 @@ function deleteCourseWare (that, courseId, courseWareName) {
     }
   })
 }
+
 function getForumData (that, courseId) {
   return that.$axios({
     method: 'get',
@@ -74,6 +81,7 @@ function getForumData (that, courseId) {
     }
   })
 }
+
 function getCommentReply (that, commentFatherId) {
   return that.$axios({
     method: 'get',
@@ -83,6 +91,7 @@ function getCommentReply (that, commentFatherId) {
     }
   })
 }
+
 function postComment (that, courseId, userEmail, commentTitle, commentContent) {
   return that.$axios({
     method: 'post',
@@ -95,6 +104,7 @@ function postComment (that, courseId, userEmail, commentTitle, commentContent) {
     }
   })
 }
+
 function replyComment (that, courseId, commentFatherId, userEmail, commentTitle, commentContent) {
   return that.$axios({
     method: 'post',
@@ -108,6 +118,7 @@ function replyComment (that, courseId, commentFatherId, userEmail, commentTitle,
     }
   })
 }
+
 export {
   getNotCheckedCourses,
   passCourse,

@@ -8,6 +8,7 @@ function login (that, email, password) {
     }
   })
 }
+
 function registry (that, email, password, userType) {
   return that.$axios({
     method: 'post',
@@ -19,6 +20,7 @@ function registry (that, email, password, userType) {
     }
   })
 }
+
 function sendVerificationCode (that, email) {
   return that.$axios({
     method: 'get',
@@ -28,6 +30,7 @@ function sendVerificationCode (that, email) {
     }
   })
 }
+
 function closeUser (that, email) {
   that.$axios({
     method: 'post',
@@ -37,6 +40,7 @@ function closeUser (that, email) {
     }
   })
 }
+
 function getUser (that, email) {
   return that.$axios({
     method: 'get',
@@ -46,6 +50,7 @@ function getUser (that, email) {
     }
   })
 }
+
 function modifyUser (that, email, username, userNumber) {
   return that.$axios({
     method: 'post',
@@ -57,21 +62,14 @@ function modifyUser (that, email, username, userNumber) {
     }
   })
 }
-function isComplete (that, email) {
-  return that.$axios({
-    method: 'get',
-    url: '/MyCourses/api/v1/user/isComplete',
-    params: {
-      email: email
-    }
-  })
-}
+
 function getAllUser (that) {
   return that.$axios({
     method: 'get',
     url: '/MyCourses/api/v1/user/getAllUser'
   })
 }
+
 export {
   login,
   registry,
@@ -79,6 +77,5 @@ export {
   closeUser,
   getUser,
   modifyUser,
-  isComplete,
   getAllUser
 }

@@ -15,30 +15,30 @@
         </el-col>
       </el-row>
     </div>
-  <el-table
-    :data="selectData"
-    style="width: 100%">
-    <el-table-column
-      prop="semesterId"
-      label="学期课程号"
-      width="200">
-    </el-table-column>
-    <el-table-column
-      prop="courseId"
-      label="课程号"
-      width="200">
-    </el-table-column>
-    <el-table-column
-      prop="courseName"
-      label="课程名"
-      width="200">
-    </el-table-column>
-    <el-table-column
-      prop="isSelected"
-      label="选退课情况"
-      width="200">
-    </el-table-column>
-  </el-table>
+    <el-table
+      :data="selectData"
+      style="width: 100%">
+      <el-table-column
+        prop="semesterId"
+        label="学期课程号"
+        width="200">
+      </el-table-column>
+      <el-table-column
+        prop="courseId"
+        label="课程号"
+        width="200">
+      </el-table-column>
+      <el-table-column
+        prop="courseName"
+        label="课程名"
+        width="200">
+      </el-table-column>
+      <el-table-column
+        prop="isSelected"
+        label="选退课情况"
+        width="200">
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 

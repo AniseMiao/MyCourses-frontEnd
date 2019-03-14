@@ -5,6 +5,7 @@ function showMsg (that, type, message) {
     message: message
   })
 }
+
 export default {
   showMsg
 }

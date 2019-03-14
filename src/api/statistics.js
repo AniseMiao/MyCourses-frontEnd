@@ -4,18 +4,21 @@ function getStatistics (that) {
     url: '/MyCourses/api/v1/statistics/getLog'
   })
 }
+
 function getUseStatistics (that) {
   return that.$axios({
     method: 'get',
     url: '/MyCourses/api/v1/statistics/showUse'
   })
 }
+
 function showTodoForAdmin (that) {
   return that.$axios({
     method: 'get',
     url: '/MyCourses/api/v1/statistics/showTodoForAdmin'
   })
 }
+
 function getSemesterData (that, email) {
   return that.$axios({
     method: 'get',
@@ -25,6 +28,7 @@ function getSemesterData (that, email) {
     }
   })
 }
+
 function getSelectCourseData (that, email) {
   return that.$axios({
     method: 'get',
@@ -34,6 +38,7 @@ function getSelectCourseData (that, email) {
     }
   })
 }
+
 function showScore (that, email) {
   return that.$axios({
     method: 'get',
@@ -43,6 +48,7 @@ function showScore (that, email) {
     }
   })
 }
+
 export {
   getStatistics,
   getUseStatistics,

@@ -1,34 +1,34 @@
 <template>
-<div>
-  <el-table
-    :data="semesterData"
-    style="width: 100%">
-    <el-table-column
-      prop="semesterId"
-      label="学期课程号"
-      width="100">
-    </el-table-column>
-    <el-table-column
-      prop="courseId"
-      label="课程号"
-      width="100">
-    </el-table-column>
-    <el-table-column
-      prop="courseName"
-      label="课程名"
-      width="200">
-    </el-table-column>
-    <el-table-column label="操作">
-      <template slot-scope="scope">
-        <el-button
-          size="mini"
-          type="success"
-          @click="intoCourse(scope.row.semesterId, scope.row.courseId, scope.row.courseName)">课程学习
-        </el-button>
-      </template>
-    </el-table-column>
-  </el-table>
-</div>
+  <div>
+    <el-table
+      :data="semesterData"
+      style="width: 100%">
+      <el-table-column
+        prop="semesterId"
+        label="学期课程号"
+        width="100">
+      </el-table-column>
+      <el-table-column
+        prop="courseId"
+        label="课程号"
+        width="100">
+      </el-table-column>
+      <el-table-column
+        prop="courseName"
+        label="课程名"
+        width="200">
+      </el-table-column>
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <el-button
+            size="mini"
+            type="success"
+            @click="intoCourse(scope.row.semesterId, scope.row.courseId, scope.row.courseName)">课程学习
+          </el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+  </div>
 </template>
 
 <script>

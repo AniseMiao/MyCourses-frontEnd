@@ -4,6 +4,7 @@ function getNotCheckedSemesterCourses (that) {
     url: '/MyCourses/api/v1/semester/getNotCheckedCourses'
   })
 }
+
 function passSemesterCourse (that, id, state) {
   return that.$axios({
     method: 'post',
@@ -14,6 +15,7 @@ function passSemesterCourse (that, id, state) {
     }
   })
 }
+
 function openSemesterCourse (that, id, courseName, classNum, studentLimit, startYear, startSemester, teacherEmail, teacherName) {
   return that.$axios({
     method: 'post',
@@ -30,6 +32,7 @@ function openSemesterCourse (that, id, courseName, classNum, studentLimit, start
     }
   })
 }
+
 function getMySemesterCourse (that, email) {
   return that.$axios({
     method: 'get',
@@ -39,6 +42,7 @@ function getMySemesterCourse (that, email) {
     }
   })
 }
+
 function startCourse (that, semesterId) {
   return that.$axios({
     method: 'post',
@@ -48,6 +52,7 @@ function startCourse (that, semesterId) {
     }
   })
 }
+
 function sendEmails (that, semesterId, emailTitle, emailContent) {
   return that.$axios({
     method: 'post',
@@ -59,6 +64,7 @@ function sendEmails (that, semesterId, emailTitle, emailContent) {
     }
   })
 }
+
 function downloadHomeworks (that, courseId, semesterId, taskId) {
   return that.$axios({
     method: 'get',
@@ -71,6 +77,7 @@ function downloadHomeworks (that, courseId, semesterId, taskId) {
     responseType: 'blob'
   })
 }
+
 function getTasks (that, semesterId) {
   return that.$axios({
     method: 'get',
@@ -80,6 +87,7 @@ function getTasks (that, semesterId) {
     }
   })
 }
+
 function endCourse (that, semesterId) {
   return that.$axios({
     method: 'post',
@@ -89,6 +97,7 @@ function endCourse (that, semesterId) {
     }
   })
 }
+
 function createTask (that, semesterId, taskTitle, taskInfo) {
   return that.$axios({
     method: 'post',
@@ -100,6 +109,7 @@ function createTask (that, semesterId, taskTitle, taskInfo) {
     }
   })
 }
+
 function uploadScore (that, email, semesterId, taskId, score, isTotal) {
   return that.$axios({
     method: 'post',
@@ -113,6 +123,7 @@ function uploadScore (that, email, semesterId, taskId, score, isTotal) {
     }
   })
 }
+
 function selectCourse (that, email, semesterId) {
   return that.$axios({
     method: 'post',
@@ -123,12 +134,14 @@ function selectCourse (that, email, semesterId) {
     }
   })
 }
+
 function getPassedCourses (that) {
   return that.$axios({
     method: 'get',
     url: '/MyCourses/api/v1/semester/getPassedCourses'
   })
 }
+
 function getSelectedCourses (that, email) {
   return that.$axios({
     method: 'get',
@@ -138,6 +151,7 @@ function getSelectedCourses (that, email) {
     }
   })
 }
+
 function quitCourse (that, id) {
   return that.$axios({
     method: 'post',
@@ -147,6 +161,7 @@ function quitCourse (that, id) {
     }
   })
 }
+
 function downloadMyHomework (that, semesterId, taskId, courseId, fileName) {
   return that.$axios({
     method: 'get',
@@ -160,6 +175,7 @@ function downloadMyHomework (that, semesterId, taskId, courseId, fileName) {
     responseType: 'blob'
   })
 }
+
 function showSelectCourseData (that, email) {
   return that.$axios({
     method: 'get',
@@ -169,6 +185,7 @@ function showSelectCourseData (that, email) {
     }
   })
 }
+
 function showScore (that, email) {
   return that.$axios({
     method: 'get',
@@ -178,6 +195,7 @@ function showScore (that, email) {
     }
   })
 }
+
 export {
   getNotCheckedSemesterCourses,
   passSemesterCourse,

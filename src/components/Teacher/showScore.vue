@@ -41,8 +41,7 @@ export default {
       console.log(err)
     })
   },
-  methods: {
-  },
+  methods: {},
   data () {
     return {
       scoreData: []
