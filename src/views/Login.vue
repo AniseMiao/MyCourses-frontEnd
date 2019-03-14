@@ -180,11 +180,7 @@ export default {
       }
     }
     let validateEmail = (rule, value, cb) => {
-      if (value.endsWith('nju.edu.cn')) {
-        cb()
-      } else {
-        cb(new Error('请使用南大邮箱注册'))
-      }
+      cb()
     }
     let validateVerificationCode = (rule, value, cb) => {
       // eslint-disable-next-line eqeqeq
